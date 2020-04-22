@@ -1,0 +1,164 @@
+li{
+	list-style: none;
+}
+
+.form-search{
+	width: 50%;
+	padding: 50px 0px;   
+}
+
+.slide-main{
+	width: 50%;
+	padding: 80px 0px;
+}
+
+.header-booking {
+	margin: 0 auto;
+	text-align: center;
+    width: 350px;
+    height: 50px;
+    background: red;
+    color: #fff!important;
+    font-weight: bold;
+    padding: 15px;
+    text-transform: uppercase;
+    border-radius: 15px 15px 0 0;
+    font-size: 20px!important;
+}
+
+#demo{
+	box-shadow: 0 10px 50px 0 rgba(0,0,0,.25);
+}
+
+.header-booking h1{
+	font-size: 18px;
+}
+
+.label-normal{
+	font-weight: 400;
+}
+
+.dialog-datve {
+	margin: 0 auto;
+    background: #fff;
+    width: 350px;
+    height: 300px;
+    vertical-align: middle;
+    border-radius: 0 0 15px 15px;
+    border: 1px dotted #378a42;
+    box-shadow: 0 10px 50px 0 rgba(0,0,0,.25);
+    z-index: 99999999;
+    padding: 15px;
+}
+
+@media screen and (max-width: 768px) {
+	.slide-main{
+		display: none;
+	}
+	.form-search{
+		width: 100%;
+	}
+	.header-booking{
+		width: 100%;
+	}
+
+	.dialog-datve{
+		width: 100%;
+	}
+
+	.list-news ul{
+		padding-left: 0;
+	}
+}
+
+@media screen and (max-width: 575px) {
+	.navbar-nav .nav-link{
+		border-bottom: 1px solid #fff;
+	}
+
+	.hov{
+		display: none;
+	}
+}
+
+.news h3{
+	font-size: 18px;
+	padding-bottom: 5px;
+	border-bottom: 2px solid #28a745;
+}
+
+.news h4{
+	margin-top: 15px;
+	margin-bottom: 5px; 
+	font-size: 15px;
+	color: #28a745;
+	font-weight: bold;
+}
+
+.news h3 li{
+	color: #28a745;
+}
+
+.first-news img{
+	max-width: 100%;
+}
+
+.time-up{
+	font-size: 13px;
+	color: #858e97;
+}
+
+.news p{
+	margin-top: 10px; 
+	font-size: 15px;
+}
+
+.tuyenxe h3{
+	font-size: 18px;
+	padding-bottom: 5px;
+	border-bottom: 2px solid #28a745;
+}
+
+.btn-date{
+	width: 110px;
+	font-size: 14px;
+}
+
+
+.footer{
+	background: #28a745;
+	padding-top: 30px;
+	padding-bottom: 20px; 
+}
+
+.footer h4{
+	font-size: 18px;
+	color: #fff;
+	font-weight: bold;
+}
+
+.footer a{
+	color: rgba(255,255,255,.5);
+}
+
+.hov{
+	background: #fff; 
+	height: 1px;
+	width: 0%;
+}
+
+.nav-item:hover .hov{
+	width: 100%;
+	transition: 0.5s;
+}
+
+.panel{
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+
+.navbar-dark .navbar-nav .nav-link{
+	color: #fff;
+}
+

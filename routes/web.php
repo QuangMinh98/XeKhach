@@ -1,0 +1,115 @@
+<?php
+
+/*
+|--------------------------------------------------------------------------
+| Web Routes
+|--------------------------------------------------------------------------
+|
+| Here is where you can register web routes for your application. These
+| routes are loaded by the RouteServiceProvider within a group which
+| contains the "web" middleware group. Now create something great!
+|
+*/
+
+Route::get('/', function () {
+    return view('welcome');
+});
+
+Route::group(['prefix'=>'admin'],function(){
+	Route::group(['prefix'=>'tuyenxe'],function(){
+		Route::get('danhsach','tuyenController@getDanhSach')->name('tuyen');
+		Route::post('add','tuyenController@addTuyen')->name('addtuyen');
+		Route::post('edit','tuyenController@editTuyen')->name('edittuyen');
+		Route::post('delete','tuyenController@deleteTuyen')->name('deletetuyen');
+		Route::post('tinhtrang','tuyenController@changeStatus')->name('statusTuyen');
+	});
+	Route::group(['prefix'=>'hangxe'],function(){
+		Route::get('danhsach','hangController@getDanhSach')->name('hang');
+		Route::get('add','hangController@showAdd')->name('showAdd');
+		Route::post('addhang','hangController@addHang')->name('addhang');
+		Route::get('edit/{id}','hangController@showEdit')->name('showEdit');
+		Route::post('edithang','hangController@editHang')->name('edithang');
+		Route::get('delete/{id}','hangController@deleteHang')->name('deletehang');
+	});
+	Route::group(['prefix'=>'loaixe'],function(){
+		Route::get('danhsach','loaixeController@getDanhSach')->name('loaixe');
+		Route::post('add','loaixeController@addLoaiXe')->name('addloaixe');
+		Route::post('edit','loaixeController@editLoaiXe')->name('editloaixe');
+		Route::post('delete','loaixeController@deleteLoaiXe')->name('deleteloaixe');
+	});
+	Route::group(['prefix'=>'xekhach'],function(){
+		Route::get('danhsach','xeController@getDanhSach')->name('xe');
+		Route::get('add','xeController@showAdd')->name('showaddxe');
+		Route::post('addxe','xeController@addXe')->name('addxe');
+		Route::get('chitiet/{id}','xeController@showDetail')->name('detailxe');
+		Route::get('editSeat','xeController@editSeat')->name('editSeat');
+		Route::get('edit/{id}','xeController@showEdit')->name('showeditxe');
+		Route::post('editxe','xeController@editXe')->name('editxe');
+		Route::post('delete','xeController@delXe')->name('delXe');
+	});
+	Route::group(['prefix'=>'tinh'],function(){
+		Route::get('danhsach','tinhController@getDanhSach')->name('tinh');
+		Route::post('add','tinhController@addTinh')->name('addtinh');
+		Route::post('edit','tinhController@editTinh')->name('editTinh');
+	});
+	Route::group(['prefix'=>'chuyenxe'],function(){
+		Route::get('danhsach','chuyenxeController@getDanhSach')->name('chuyenxe');
+		Route::get('add','chuyenxeController@showAdd')->name('showaddchuyen');
+		Route::post('addchuyen','chuyenxeController@addChuyen')->name('addchuyen');
+		Route::get('ajaxxe','chuyenxeController@ajaxXe')->name('ajaxxe');
+		Route::get('ajaxlotrinh','chuyenxeController@ajaxLoTrinh')->name('ajaxlotrinh');
+		Route::get('edit/{id}','chuyenxeController@showEdit')->name('showeditchuyen');
+		Route::post('editchuyen','chuyenxeController@editChuyen')->name('editChuyen');
+		Route::get('chitiet/{id}','chuyenxeController@showDetail')->name('detailchuyen');
+		Route::get('changeStatus','chuyenxeController@changeStatus')->name('changeStatus');
+		Route::post('delete','chuyenxeController@deleteChuyen')->name('delChuyen');
+	});
+	Route::group(['prefix'=>'users'],function(){
+		Route::get('quantri','usersController@getAdmin')->name('admin');
+		Route::get('them-quan-tri','usersController@viewAddAdmin')->name('viewAddAdmin');
+		Route::post('addquantri','usersController@addAdmin')->name('addAdmin');
+		Route::get('sua-quan-tri','usersController@viewEditAdmin')->name('viewEditAdmin');
+		Route::post('editquantri','usersController@editAdmin')->name('editAdmin');
+		Route::get('khachhang','usersController@getUsers')->name('users');
+		Route::get('them-khach-hang','usersController@viewAddUser')->name('viewAddUser');
+		Route::post('adduser','usersController@addUser')->name('addUser');
+		Route::get('sua-khach-hang','usersController@viewEditUser')->name('viewEditUser');
+		Route::post('edituser','usersController@editUser')->name('editUser');
+	});
+	Route::group(['prefix'=>'quanlyve'],function(){
+		Route::get('danhsach','veController@danhsachve')->name('ve');
+		Route::post('thanhtoan','veController@thanhtoan')->name('thanhtoan');
+		Route::post('tiepnhan','veController@tiepnhan')->name('tiepnhan');
+		Route::get('chitiet/{id}','veController@showDetail')->name('chitietve');
+	});
+});
+
+Route::get('login','usersController@getLogin')->name('login');
+Route::post('demoLogin','usersController@Login')->name('demologin');
+Route::get('demoView','usersController@getView')->name('demoview');
+Route::get('demoSearch','chuyenxeController@demoSearch')->name('demoSearch');
+Route::get('demoChiTiet/{id}','chuyenxeController@demoChiTiet')->name('demochitiet');
+route::post('datve','veController@datve')->name('datve');
+route::get('trangchu','viewController@viewHome')->name('home');
+route::get('search','viewController@viewSearch')->name('search');
+route::get('chitiet/{id}','viewController@viewDetail')->name('chitiet');
+route::get('dangnhap','viewController@viewLogin')->name('viewLogin');
+route::get('dangky','viewController@viewRegister')->name('viewRegister');
+route::post('register','viewController@register')->name('register');
+route::post('login','viewController@login')->name('login');
+route::post('checkout','viewController@checkout')->name('checkout')->middleware('checkLogin');
+route::post('success','viewController@datve')->name('success')->middleware('checkLogin');
+route::group(['prefix'=>'ve-cua-toi','middleware'=>'checkLogin'],function(){
+	route::get('ve-da-dat','viewController@getTicket')->name('ticket');
+	route::get('ve-thanh-cong','viewController@getSuccess')->name('successticket');
+	route::get('ve-da-huy','viewController@getCancel')->name('cancel');
+	route::get('/{id}','viewController@getTicketById')->name('ticketById');
+	route::post('huy-ve','viewController@cancelTicket')->name('cancelTicket');
+});
+route::group(['prefix'=>'tai-khoan','middleware'=>'checkLogin'],function(){
+	route::get('thong-tin','viewController@viewInfo')->name('viewInfo');
+	route::post('sua-thong-tin','viewController@changeInfo')->name('changeInfo');
+	route::get('doi-mat-khau','viewController@viewChangePassword')->name('viewChangePassword');
+	route::post('changePassword','viewController@changePassword')->name('changePassword');
+	route::get('dang-xuat','viewController@logOut')->name('logOut');
+});
