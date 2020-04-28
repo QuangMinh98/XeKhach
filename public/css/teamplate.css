@@ -258,6 +258,11 @@
     font-size: 13px
   }
 
+  .btn-danger{
+    font-family: 'Varela Round', sans-serif;
+    font-size: 13px
+  }
+
   .add{
     padding-top: 32px;
   }
@@ -313,4 +318,34 @@
   .modal{
     color: #566787;
     font-family: 'Varela Round', sans-serif;
+  }
+
+  .data-title h4{
+    color: #566787;
+    font-family: 'Varela Round', sans-serif;
+    font-size: 25px; 
+  }
+
+  .data-form{
+    color: #566787;
+    font-family: 'Varela Round', sans-serif;
+  }
+
+  .panel{
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin-bottom: 20px;
+  }
+
+  .text-primary {
+      color: #ef5222 !important;
+  }
+  .text-uppercase {
+      text-transform: uppercase !important;
+  }
+  .text-center {
+      text-align: center !important;
+  }
+  p {
+      margin: 0 0 10px;
   }

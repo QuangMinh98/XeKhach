@@ -110,7 +110,7 @@ class chuyenxeController extends Controller
     				->select('chuyen.id','tuyen.tentuyen','hang.tenhang','xe.tenxe','xe.biensoxe','xe.soghe','tinhdi.tentinh as tentinhdi','tinhden.tentinh as tentinhden','lotrinh.noidi','lotrinh.noiden','chuyen.giodi','chuyen.gioden','chuyen.giave','chuyen.tinhtrang')
     				->get();
     		}
-    	return view('admin.chuyenxe.danhsach',['chuyen'=>$chuyen,'sort'=>$request->sort,'tinh'=>$tinh]);
+    	return view('teamplate.chuyenxe.danhsach',['chuyen'=>$chuyen,'sort'=>$request->sort,'tinh'=>$tinh]);
     }
 
     public function showAdd(){
@@ -118,7 +118,7 @@ class chuyenxeController extends Controller
     	$tuyen = tuyen::all();
     	$loaixe = loaixe::all();
     	$xe = xe::all();
-    	return view('admin.chuyenxe.add',['hangxe'=>$hangxe,'tuyen'=>$tuyen,'loaixe'=>$loaixe,'xe'=>$xe]);
+    	return view('teamplate.chuyenxe.add',['hangxe'=>$hangxe,'tuyen'=>$tuyen,'loaixe'=>$loaixe,'xe'=>$xe]);
     }
 
     public function ajaxXe(Request $request){
@@ -171,7 +171,7 @@ class chuyenxeController extends Controller
                 ->where('idXe',$chuyen->idXe)
                 ->select('lotrinh.id','tinhdi.tentinh as tentinhdi','tinhden.tentinh as tentinhden','lotrinh.noidi','lotrinh.noiden')
                 ->get();
-        return view('admin.chuyenxe.edit',['hangxe'=>$hang,'tuyen'=>$tuyen,'loaixe'=>$loaixe,'xe'=>$xe,'chuyen'=>$chuyen,'lotrinh'=>$lotrinh]);
+        return view('teamplate.chuyenxe.edit',['hangxe'=>$hang,'tuyen'=>$tuyen,'loaixe'=>$loaixe,'xe'=>$xe,'chuyen'=>$chuyen,'lotrinh'=>$lotrinh]);
     }
 
     public function editChuyen(Request $request){

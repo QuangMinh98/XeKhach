@@ -16,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password','level',
+        'name', 'email', 'password','level','phone','address','birthday','gender',
     ];
 
     /**
@@ -36,4 +36,9 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public static function del($id){
+        ve::where('idUser',$id)->delete();
+        User::find($id)->delete();
+    }
 }

@@ -17,31 +17,28 @@
       <a href="{{route('loaixe')}}">Loại Xe</a>
 
       <div class="dropdown">
-        <p>Dropdown</p>
-        <div class="links" style="height: 253px;">
-          <a href="">Dropdown Item</a>
-          <a href="">Dropdown Item</a>
-          <a href="">Dropdown Item</a>
-          <a href="">Dropdown Item</a>
-          <a href="">Dropdown Item</a>
-          <a href="">Dropdown Item</a>
-          <a href="">Dropdown Item</a>
-          <a href="">Dropdown Item</a>
-        </div>
-      </div>
-
-      <a href="{{route('tinh')}}">Tỉnh Thành</a>
-
-      <div class="dropdown">
-        <p>Dropdown</p>
+        <p>Hãng Xe</p>
         <div class="links" style="height: auto;">
-          <a href="">Dashboard</a>
-          <a href="">Dashboard</a>
+          <a href="{{route('hang')}}">Danh Sách</a>
+          <a href="{{route('showAdd')}}">Thêm Hãng Xe</a>
         </div>
       </div>
-
+      <div class="dropdown">
+        <p>Xe</p>
+        <div class="links" style="height: auto;">
+          <a href="{{route('xe')}}">Danh Sách</a>
+          <a href="{{route('showaddxe')}}">Thêm Xe</a>
+        </div>
+      </div>
+      <a href="{{route('tinh')}}">Tỉnh Thành</a>
+      <div class="dropdown">
+        <p>Chuyến Xe</p>
+        <div class="links" style="height: auto;">
+          <a href="{{route('chuyenxe')}}">Danh Sách</a>
+          <a href="{{route('showaddchuyen')}}">Thêm Chuyến Xe</a>
+        </div>
+      </div>
       <p class="title">Legal Section</p>
-
       <div class="dropdown">
         <p>Documents</p>
         <div class="links" style="height: 0px;">

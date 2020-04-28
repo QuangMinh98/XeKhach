@@ -38,11 +38,11 @@ class hangController extends Controller
         else{
             $hang = hang::all();
         }
-    	return view('admin.hang.danhsach',['hang'=>$hang,'sort'=>$request->sort]);
+    	return view('teamplate.hang.danhsach',['hang'=>$hang,'sort'=>$request->sort]);
     }
 
     public function showAdd(){
-    	return view('admin.hang.add');
+    	return view('teamplate.hang.add');
     }
 
     public function addHang(Request $request){
@@ -84,7 +84,7 @@ class hangController extends Controller
 
     public function showEdit($id){
         $hang = hang::find($id);
-        return view('admin.hang.edit',['hang'=>$hang]);
+        return view('teamplate.hang.edit',['hang'=>$hang]);
     }
 
     public function editHang(Request $request){
@@ -125,9 +125,8 @@ class hangController extends Controller
         return redirect()->route('hang')->with('thongbao','Đã chỉnh sửa thành công');
     }
 
-    public function deleteHang($id){
-        $hang = hang::find($id);
-        $hang->delete();
+    public function deleteHang(Request $request){
+        $hang = hang::del($request->id);
         return redirect()->route('hang')->with('thongbao','Đã xóa thành công');
     }
 }

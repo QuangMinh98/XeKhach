@@ -14,27 +14,21 @@ class usersController extends Controller
     	if(isset($request->search)){
     		$admin = User::where('name','like','%'.$request->search.'%')
     				->where('level','<','2')
+                    ->orderBy('level','asc')
     				->get();
     	}
     	elseif(isset($request->sort)){
     		switch ($request->sort) {
-    			case 1:
-    				$admin = User::where('level','<','2')
+    			case 0:
+    				$admin = User::where('level','=','0')
     				->orderBy('name','asc')
     				->get();
     				break;
-    			case 2:
-    				$admin = User::where('level','<','2')
-    				->orderBy('name','desc')
+    			case 1:
+    				$admin = User::where('level','=','1')
+    				->orderBy('name','asc')
     				->get();
-    			case 3:
-    				$admin = User::where('level','<','2')
-    				->orderBy('level','asc')
-    				->get();
-    			case 4:
-    				$admin = User::where('level','<','2')
-    				->orderBy('level','desc')
-    				->get();
+                    break;
     			default:
     				$admin = User::where('level','<','2')
     				->orderBy('name','asc')
@@ -44,7 +38,7 @@ class usersController extends Controller
     	}
     	else{
     		$admin = User::where('level','<','2')
-    		->orderBy('name','asc')
+    		->orderBy('level','asc')
     		->get();
     	}
     	return view('teamplate.users.quantri',['admin'=>$admin,'sort'=>$request->sort]);
@@ -54,22 +48,47 @@ class usersController extends Controller
 		$this->validate($request,[
 			'email' => 'required|email|min:8|unique:users,email',
 			'name' => 'required|min:3',
-			'password' => 'required|min:8'
+			'password' => 'required|min:8',
+            'address'=>'required|max:255',
+            'phone'=>'required|min:9|max:11',
+            'birthday'=>'required',
+            'gender'=>'required'
 		]);
-		$admin = new User;
-		$admin->email = $request->email;
-		$admin->name = $request->name;
-		$admin->password = bcrypt($request->password);
-		$admin->level = $request->level;
-		$admin->save();
+        if($request->password !== $request->password2){
+            return redirect()->back()->with('status','Mật Khẩu Không Trùng Khớp');
+        }
+        else{
+            $password = bcrypt($request->password);
+            User::create([
+                'email'=>$request->email,
+                'name'=>$request->name,
+                'password'=>$password,
+                'level'=>$request->level,
+                'phone'=>$request->phone,
+                'address'=>$request->address,
+                'birthday'=>$request->birthday,
+                'gender'=>$request->gender
+            ]);
+        }
 		return redirect()->route('admin')->with('thongbao','Đã thêm vào thành công');
     }
 
     public function editAdmin(Request $request){
     	$this->validate($request,[
 			'name' => 'required|min:3',
+            'address'=>'required|max:255',
+            'phone'=>'required|min:9|max:11',
+            'birthday'=>'required',
+            'gender1'=>'required'
 		]);
-		$admin = User::find($request->id)->update(['name'=>$request->name,'level'=>$request->level]);
+		$admin = User::find($request->id)->update([
+            'name'=>$request->name,
+            'level'=>$request->level,
+            'phone'=>$request->phone,
+            'address'=>$request->address,
+            'birthday'=>$request->birthday,
+            'gender'=>$request->gender1
+        ]);
 		return redirect()->route('admin')->with('thongbao','Đã chỉnh sửa thành công');		
     }
 
@@ -155,6 +174,10 @@ class usersController extends Controller
     public function getView(){
         $tinh = tinhdi::all();
         return view('user.demoview',['tinh'=>$tinh]);
+    }
+
+    public function deleteUser(Request $request){
+        User::del($request->id);
     }
 
 }

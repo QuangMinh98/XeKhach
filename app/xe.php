@@ -10,6 +10,19 @@ use App\chuyen;
 class xe extends Model
 {
     protected $table = 'xe';
+    protected $fillable = [
+        'tenxe',
+        'mauxe',
+        'sotang',
+        'soghe',
+        'mota',
+        'biensoxe',
+        'tinhtrang',
+        'img',
+        'idtuyen',
+        'idHang',
+        'idloaixe'
+    ];
 
     public function tuyen(){
     	return $this->belongsTo('App\tuyen','idtuyen','id');

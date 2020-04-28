@@ -29,7 +29,7 @@ Route::group(['prefix'=>'admin'],function(){
 		Route::post('addhang','hangController@addHang')->name('addhang');
 		Route::get('edit/{id}','hangController@showEdit')->name('showEdit');
 		Route::post('edithang','hangController@editHang')->name('edithang');
-		Route::get('delete/{id}','hangController@deleteHang')->name('deletehang');
+		Route::post('delete','hangController@deleteHang')->name('deletehang');
 	});
 	Route::group(['prefix'=>'loaixe'],function(){
 		Route::get('danhsach','loaixeController@getDanhSach')->name('loaixe');
@@ -46,6 +46,7 @@ Route::group(['prefix'=>'admin'],function(){
 		Route::get('edit/{id}','xeController@showEdit')->name('showeditxe');
 		Route::post('editxe','xeController@editXe')->name('editxe');
 		Route::post('delete','xeController@delXe')->name('delXe');
+		Route::post('changeStatus','xeController@changeStatus')->name('statusXe');
 	});
 	Route::group(['prefix'=>'tinh'],function(){
 		Route::get('danhsach','tinhController@getDanhSach')->name('tinh');
@@ -66,15 +67,13 @@ Route::group(['prefix'=>'admin'],function(){
 	});
 	Route::group(['prefix'=>'users'],function(){
 		Route::get('quantri','usersController@getAdmin')->name('admin');
-		Route::get('them-quan-tri','usersController@viewAddAdmin')->name('viewAddAdmin');
 		Route::post('addquantri','usersController@addAdmin')->name('addAdmin');
-		Route::get('sua-quan-tri','usersController@viewEditAdmin')->name('viewEditAdmin');
 		Route::post('editquantri','usersController@editAdmin')->name('editAdmin');
 		Route::get('khachhang','usersController@getUsers')->name('users');
 		Route::get('them-khach-hang','usersController@viewAddUser')->name('viewAddUser');
 		Route::post('adduser','usersController@addUser')->name('addUser');
-		Route::get('sua-khach-hang','usersController@viewEditUser')->name('viewEditUser');
 		Route::post('edituser','usersController@editUser')->name('editUser');
+		Route::post('deleteuser','usersController@deleteUser')->name('delUser');
 	});
 	Route::group(['prefix'=>'quanlyve'],function(){
 		Route::get('danhsach','veController@danhsachve')->name('ve');

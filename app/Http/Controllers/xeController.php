@@ -16,71 +16,25 @@ use App\ghe;
 class xeController extends Controller
 {
     public function getDanhSach(Request $request){
+        $hang = hang::all();
     	if(isset($request->search)&&isset($request->sort)){
-            switch($request->sort){
-                case 1: $xe = xe::join('loaixe','xe.idLoaiXe','=','loaixe.id')
+            $xe = xe::join('loaixe','xe.idLoaiXe','=','loaixe.id')
                 ->join('hang','xe.idHang','=','hang.id')
                 ->join('tuyen','xe.idTuyen','=','tuyen.id')
                 ->where('tenxe','like','%'.$request->search.'%')
+                ->where('xe.idHang',$request->sort)
                 ->orderBy('tenxe','asc')
                 ->select('xe.id as idXe','tenhang','tenxe','tentuyen','xe.tinhtrang','sotang','soghe','biensoxe')
                 ->get();
-                break;
-                case 2: $xe = xe::join('loaixe','xe.idLoaiXe','=','loaixe.id')
-                ->join('hang','xe.idHang','=','hang.id')
-                ->join('tuyen','xe.idTuyen','=','tuyen.id')
-                ->where('tenxe','like','%'.$request->search.'%')
-                ->orderBy('tenxe','desc')
-                ->select('xe.id as idXe','tenhang','tenxe','tentuyen','xe.tinhtrang','sotang','soghe','biensoxe')
-                ->get();
-                break;
-                case 3: $xe = xe::join('loaixe','xe.idLoaiXe','=','loaixe.id')
-                ->join('hang','xe.idHang','=','hang.id')
-                ->join('tuyen','xe.idTuyen','=','tuyen.id')
-                ->where('tenxe','like','%'.$request->search.'%')
-                ->orderBy('created_at','desc')
-                ->select('xe.id as idXe','tenhang','tenxe','tentuyen','xe.tinhtrang','sotang','soghe','biensoxe')
-                ->get();
-                break;
-                case 4: $xe = xe::join('loaixe','xe.idLoaiXe','=','loaixe.id')
-                ->join('hang','xe.idHang','=','hang.id')
-                ->join('tuyen','xe.idTuyen','=','tuyen.id')
-                ->where('tenxe','like','%'.$request->search.'%')
-                ->orderBy('created_at','asc')
-                ->select('xe.id as idXe','tenhang','tenxe','tentuyen','xe.tinhtrang','sotang','soghe','biensoxe')
-                ->get();
-            }
         }
         elseif(isset($request->sort)){
-            switch($request->sort){
-                case 1: $xe = xe::join('loaixe','xe.idLoaiXe','=','loaixe.id')
+            $xe = xe::join('loaixe','xe.idLoaiXe','=','loaixe.id')
                 ->join('hang','xe.idHang','=','hang.id')
                 ->join('tuyen','xe.idTuyen','=','tuyen.id')
+                ->where('xe.idHang',$request->sort)
                 ->orderBy('tenxe','asc')
                 ->select('xe.id as idXe','tenhang','tenxe','tentuyen','xe.tinhtrang','sotang','soghe','biensoxe')
                 ->get();
-                break;
-                case 2: $xe = xe::join('loaixe','xe.idLoaiXe','=','loaixe.id')
-                ->join('hang','xe.idHang','=','hang.id')
-                ->join('tuyen','xe.idTuyen','=','tuyen.id')
-                ->orderBy('tenxe','desc')
-                ->select('xe.id as idXe','tenhang','tenxe','tentuyen','xe.tinhtrang','sotang','soghe','biensoxe')
-                ->get();
-                break;
-                case 3: $xe = xe::join('loaixe','xe.idLoaiXe','=','loaixe.id')
-                ->join('hang','xe.idHang','=','hang.id')
-                ->join('tuyen','xe.idTuyen','=','tuyen.id')
-                ->orderBy('created_at','asc')
-                ->select('xe.id as idXe','tenhang','tenxe','tentuyen','xe.tinhtrang','sotang','soghe','biensoxe')
-                ->get();
-                break;
-                case 4: $xe = xe::join('loaixe','xe.idLoaiXe','=','loaixe.id')
-                ->join('hang','xe.idHang','=','hang.id')
-                ->join('tuyen','xe.idTuyen','=','tuyen.id')
-                ->orderBy('created_at','desc')
-                ->select('xe.id as idXe','tenhang','tenxe','tentuyen','xe.tinhtrang','sotang','soghe','biensoxe')
-                ->get();
-            }
         }
         elseif (isset($request->search)) {
             $xe = xe::join('loaixe','xe.idLoaiXe','=','loaixe.id')
@@ -97,7 +51,7 @@ class xeController extends Controller
                 ->select('xe.id as idXe','tenhang','tenxe','tentuyen','xe.tinhtrang','sotang','soghe','biensoxe')
                 ->get();
         }
-    	return view('admin.xe.danhsach',['xe'=>$xe,'sort'=>$request->sort]);
+    	return view('teamplate.xe.danhsach',['xe'=>$xe,'sort'=>$request->sort,'hang'=>$hang]);
     }
 
     public function showAdd(){
@@ -105,7 +59,7 @@ class xeController extends Controller
     	$tuyen = tuyen::all();
     	$loaixe = loaixe::all();
         $tinh = tinhdi::all();
-    	return view('admin.xe.add',['hangxe'=>$hang,'tuyen'=>$tuyen,'loaixe'=>$loaixe,'tinh'=>$tinh]);
+    	return view('teamplate.xe.add',['hangxe'=>$hang,'tuyen'=>$tuyen,'loaixe'=>$loaixe,'tinh'=>$tinh]);
     }
 
     public function addXe(Request $request){
@@ -174,7 +128,7 @@ class xeController extends Controller
                 ->select('lotrinh.id','tinhdi.tentinh as tentinhdi','noidi','tinhden.tentinh as tentinhden','noiden')
                 ->orderBy('id','asc')
                 ->first();
-        return view('admin.xe.chitiet',['xe'=>$xe,'tuyen'=>$tuyen,'hang'=>$hang,'loaixe'=>$loaixe,'lotrinh'=>$lotrinh,'ghe'=>$ghe]);
+        return view('teamplate.xe.chitiet',['xe'=>$xe,'tuyen'=>$tuyen,'hang'=>$hang,'loaixe'=>$loaixe,'lotrinh'=>$lotrinh,'ghe'=>$ghe]);
     }
 
     public function editSeat(Request $request){
@@ -197,7 +151,7 @@ class xeController extends Controller
         $loaixe = loaixe::all();
         $tuyen = tuyen::all();
         $tinhdi = tinhdi::all();
-        return view('admin.xe.edit',['xe'=>$xe,'hangxe'=>$hang,'loaixe'=>$loaixe,'tuyen'=>$tuyen,'tinh'=>$tinhdi,'lotrinhdi'=>$lotrinhdi,'lotrinhve'=>$lotrinhve]);
+        return view('teamplate.xe.edit',['xe'=>$xe,'hangxe'=>$hang,'loaixe'=>$loaixe,'tuyen'=>$tuyen,'tinh'=>$tinhdi,'lotrinhdi'=>$lotrinhdi,'lotrinhve'=>$lotrinhve]);
     }
 
     public function editXe(Request $request){
@@ -267,5 +221,9 @@ class xeController extends Controller
 
     public function delXe(Request $request){
         xe::delXe($request->id);
+    }
+
+    public function changeStatus(Request $request){
+        xe::find($request->id)->update(['tinhtrang'=>$request->status]);
     }
 }
