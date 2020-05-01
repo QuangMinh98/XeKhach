@@ -40,24 +40,24 @@
 								</div>
 								<div class="form-group">
 									<label for="sdt">Số điện thoại:</label>
-									<input type="text" id="sdt" name="sdt" value="" class="form-control">
+									<input type="text" id="sdt" name="phone" value="{{Auth::user()->phone}}" class="form-control">
 								</div>
 								<div class="form-group">
 									<label for="diachi">Địa chỉ:</label>
-									<input type="text" id="sdt" name="sdt" value="" class="form-control">
+									<input type="text" id="sdt" name="address" value="{{Auth::user()->address}}" class="form-control">
 								</div>
 								<div class="form-group">
 									<label for="diachi">Ngày sinh:</label>
-									<input type="date" id="ngaysinh" name="ngaysinh" value="" class="form-control">
+									<input type="date" id="ngaysinh" name="birthday" value="{{Auth::user()->birthday}}" class="form-control">
 								</div>
 								<div class="form-group">
 									<label style="margin-right: 30px;">Giới tính:</label>
 									<div class="custom-control custom-radio custom-control-inline" id="gioitinh">
-								      <input type="radio" class="custom-control-input" id="customRadio1" name="gioitinh" value="1">
+								      <input type="radio" class="custom-control-input" id="customRadio1" name="gender" value="1" @if(Auth::user()->gender == 1) checked @endif>
 								      <label class="custom-control-label" for="customRadio1" style="padding-top: 5px">Nam</label>
 								    </div>
 								    <div class="custom-control custom-radio custom-control-inline">
-								      <input type="radio" class="custom-control-input" id="customRadio2" name="gioitinh" value="0">
+								      <input type="radio" class="custom-control-input" id="customRadio2" name="gender" value="0" @if(Auth::user()->gender == 0) checked @endif>
 								      <label class="custom-control-label" for="customRadio2" style="padding-top: 5px">Nữ</label>
 								    </div>
 								</div>

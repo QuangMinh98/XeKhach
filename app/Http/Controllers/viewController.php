@@ -95,7 +95,11 @@ class viewController extends Controller
         $this->validate($request,[
             'name'=>'required|min:3',
             'email'=>'required|email|unique:users,email',
-            'password'=>'required|min:3|max:22'
+            'password'=>'required|min:3|max:22',
+            'address'=>'required|max:255',
+            'phone'=>'required|max:12|min:9',
+            'gender'=>'required',
+            'birthday'=>'required'
         ],[
             'name.required'=>'Bạn Chưa Nhập Tên Người Dùng',
             'name.min'=>'Tên Cần Tối Thiểu 3 Ký Tự',
@@ -104,10 +108,17 @@ class viewController extends Controller
             'email.unique'=>'Email Đã Tồn Tại',
             'password.required'=>'Bạn Chưa Nhập Mật Khẩu',
             'password.min'=>'Mật Khẩu Cần Tối Thiểu 3 Ký Tự',
-            'password.max'=>'Mật Khẩu Tối Đa 22 Ký Tự'
+            'password.max'=>'Mật Khẩu Tối Đa 22 Ký Tự',
+            'address.required'=>'Bạn chưa nhập địa chỉ',
+            'address.max'=>'Địa chỉ có tối đa 255 ký tự',
+            'phone.required'=>'Bạn chưa nhập vào số điện thoại',
+            'phone.max'=>'Số điện thoại có tối đa 12 ký tự',
+            'phone.min'=>'Số điện thoại có tối thiểu 9 ký tự',
+            'gender.required'=>'Bạn chưa chọn giới tính',
+            'birthday'=>'Bạn chưa chọn ngày sinh'
         ]);
 
-        $user = User::create(['name'=>$request->name,'password'=>bcrypt($request->password),'email'=>$request->email,'level'=>'2']);
+        $user = User::create(['name'=>$request->name,'password'=>bcrypt($request->password),'email'=>$request->email,'level'=>'2','address'=>$request->address,'phone'=>$request->phone,'gender'=>$request->gender,'birthday'=>$request->birthday]);
         return redirect()->route('viewRegister')->with('thongbao','Đã Đăng Ký Thành Công');
     }
 
@@ -247,14 +258,25 @@ class viewController extends Controller
 
     public function changeInfo(Request $request){
         $this->validate($request,[
-            'name' => 'required|min:5|max:255'
+            'name' => 'required|min:5|max:255',
+            'address'=>'required|max:255',
+            'phone'=>'required|max:12|min:9',
+            'gender'=>'required',
+            'birthday'=>'required'
         ],[
             'name.required' => 'Bạn chưa nhập tên',
             'name.min' => 'Tên cần tối thiểu 5 ký tự',
-            'name.max' => 'Tên có tối đa 255 ký tự'
+            'name.max' => 'Tên có tối đa 255 ký tự',
+            'address.required'=>'Bạn chưa nhập địa chỉ',
+            'address.max'=>'Địa chỉ có tối đa 255 ký tự',
+            'phone.required'=>'Bạn chưa nhập vào số điện thoại',
+            'phone.max'=>'Số điện thoại có tối đa 12 ký tự',
+            'phone.min'=>'Số điện thoại có tối thiểu 9 ký tự',
+            'gender.required'=>'Bạn chưa chọn giới tính',
+            'birthday'=>'Bạn chưa chọn ngày sinh'
         ]);
         $id = Auth::user()->id;
-        User::find($id)->update(['name'=>$request->name]);
+        User::find($id)->update(['name'=>$request->name,'address'=>$request->address,'phone'=>$request->phone,'gender'=>$request->gender,'birthday'=>$request->birthday]);
         return redirect()->back()->with('thongbao','Đã thay đổi thành công');
     }
 

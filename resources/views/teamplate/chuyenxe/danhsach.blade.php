@@ -48,7 +48,7 @@
 						<td>{{$ds->tenhang}}</td>
 						<td>{{$ds->tentuyen}}</td>
 						<td>{{$ds->giodi}}->{{$ds->gioden}}</td>
-						<td><a href="" class="badge badge-info">Chi Tiết</a></td>
+						<td><a href="{{route('detailchuyen',['id'=>$ds->id])}}" class="badge badge-info">Chi Tiết</a></td>
 						<td>
 							<a href="{{route('showeditchuyen',['id'=>$ds->id])}}">
 								<span class="edit"><i class="fas fa-pencil-alt"></i></span>

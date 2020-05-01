@@ -202,7 +202,12 @@ class chuyenxeController extends Controller
         $xe = xe::findOrFail($chuyen->idXe);
         $ghe = xe::findOrFail($chuyen->idXe)->ghe; 
         $sove = ve::where('idChuyen',$chuyen->id)->count();
-        return view('admin.chuyenxe.chitiet',['chuyen'=>$chuyen,'sove'=>$sove,'xe'=>$xe,'ghe'=>$ghe]);
+        $ve = ve::where('idChuyen',$chuyen->id)->where('tinhtrang','!=','3')->get();
+        $arrayVe = array();
+        foreach($ve as $ticket){
+            $arrayVe[] = $ticket->soghe;
+        }
+        return view('teamplate.chuyenxe.chitiet',['chuyen'=>$chuyen,'sove'=>$sove,'xe'=>$xe,'ghe'=>$ghe,'ve'=>$arrayVe]);
     }
 
     public function changeStatus(Request $request){

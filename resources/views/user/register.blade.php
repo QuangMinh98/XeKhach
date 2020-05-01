@@ -22,8 +22,21 @@
 					@csrf
 					<input type="text" name="email" class="input-email" placeholder="Email">
 					<input type="text" name="name" class="input-email" placeholder="Tên Người Dùng">
+					<input type="text" name="address" class="input-email" placeholder="Địa Chỉ">
+					<input type="text" name="phone" class="input-email" placeholder="Số Điện Thoại">
+					<input type="date" name="birthday" class="input-email" placeholder="Ngày Sinh">
 					<input type="text" name="password" class="input-email" placeholder="Mật Khẩu">
 					<input type="text" name="repassword" class="input-email" placeholder="Nhập Lại Mật Khẩu">
+					<div class="form-group">
+						<div class="custom-control custom-radio custom-control-inline">
+							<input type="radio" class="custom-control-input" id="customRadio1" name="gender" value="1">
+							<label class="custom-control-label" for="customRadio1">Nam</label>
+						</div>
+						<div class="custom-control custom-radio custom-control-inline">
+							<input type="radio" class="custom-control-input" id="customRadio2" name="gender" value="0">
+							<label class="custom-control-label" for="customRadio2">Nữ</label>
+						</div>
+					</div>
 					<button type="submit" class="button-submit">Đăng Ký</button>
 				</form>
 				<h2>Hoặc</h2>
@@ -41,7 +54,7 @@
 		width: 555px;
 		text-align: center;
 		padding-top: 60px;
-		height: 620px;
+		height: 820px;
 		border: 1px solid #ddd;
 	    margin-bottom: 20px;
 	}
@@ -56,15 +69,12 @@
 		width: 70%;
 		height: 44px;
 		border-radius: 50px;
-		border: solid 1px 
-		#e0e0e0;
-		background-color:
-		#f9f9f9;
+		border: solid 1px #e0e0e0;
+		background-color: #f9f9f9;
 		padding: 0 20px;
 		margin-bottom: 20px;
 		font-weight: 500;
-		color:
-		#757575;
+		color: #757575;
 	}
 	input{
 		outline: 0;

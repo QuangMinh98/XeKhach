@@ -66,7 +66,7 @@
 		$(".delete").click(function(){
 			id = $(this).data('id');
 			if (confirm("Dữ liệu xoá sẽ không khôi phục được. Bạn có thật sự muốn xoá?")) {
-				$.post('{{route('delhang')}}',{id:id,_token:"{{csrf_token()}}"}).done(function(){
+				$.post('{{route('deletehang')}}',{id:id,_token:"{{csrf_token()}}"}).done(function(){
 					location.reload();
 				}).fail(function(){
 					alert('Không thể hoàn thành thao tác này');

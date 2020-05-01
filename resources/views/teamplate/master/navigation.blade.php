@@ -9,7 +9,7 @@
     </div>
     <div class="wrap">
       <a href="{{route('admin')}}">Quản Trị Viên</a>
-      <a href="">Khách Hàng</a>
+      <a href="{{route('users')}}">Khách Hàng</a>
 
       <p class="title">Quản Lý Xe</p>
 
@@ -38,6 +38,7 @@
           <a href="{{route('showaddchuyen')}}">Thêm Chuyến Xe</a>
         </div>
       </div>
+      <a href="{{route('ve')}}">Quản Lý Vé</a>
       <p class="title">Legal Section</p>
       <div class="dropdown">
         <p>Documents</p>

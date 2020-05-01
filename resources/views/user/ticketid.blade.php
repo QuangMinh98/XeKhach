@@ -63,6 +63,16 @@
 											</p>
 										</td>
 									</tr>
+									<tr>
+										<td><p><strong>Thanh Toán:</strong>
+												<span>
+													@if($ve->thanhtoan == 0) Chưa Thanh Toán
+													@else Đã Thanh Toán
+													@endif
+												</span>
+											</p>
+										</td>
+									</tr>
 								</tbody>
 							</table>
 						</div>

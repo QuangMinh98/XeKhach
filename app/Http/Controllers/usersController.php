@@ -121,7 +121,7 @@ class usersController extends Controller
             ->orderBy('name','asc')
             ->get();
         }
-        return view('admin.users.khachhang',['users'=>$users,'sort'=>$request->sort]);
+        return view('teamplate.users.khachhang',['users'=>$users,'sort'=>$request->sort]);
     }
 
     public function addUser(Request $request){
@@ -141,9 +141,24 @@ class usersController extends Controller
 
     public function editUser(Request $request){
         $this->validate($request,[
-            'name' => 'required|min:3',
+            'name' => 'required|min:5|max:255',
+            'address'=>'required|max:255',
+            'phone'=>'required|max:12|min:9',
+            'gender'=>'required',
+            'birthday'=>'required'
+        ],[
+            'name.required' => 'Bạn chưa nhập tên',
+            'name.min' => 'Tên cần tối thiểu 5 ký tự',
+            'name.max' => 'Tên có tối đa 255 ký tự',
+            'address.required'=>'Bạn chưa nhập địa chỉ',
+            'address.max'=>'Địa chỉ có tối đa 255 ký tự',
+            'phone.required'=>'Bạn chưa nhập vào số điện thoại',
+            'phone.max'=>'Số điện thoại có tối đa 12 ký tự',
+            'phone.min'=>'Số điện thoại có tối thiểu 9 ký tự',
+            'gender.required'=>'Bạn chưa chọn giới tính',
+            'birthday'=>'Bạn chưa chọn ngày sinh'
         ]);
-        User::find($request->id)->update(['name'=>$request->name]);
+        User::find($request->id)->update(['name'=>$request->name,'address'=>$request->address,'phone'=>$request->phone,'gender'=>$request->gender,'birthday'=>$request->birthday]);
         return redirect()->route('users')->with('thongbao','Đã chỉnh sửa thành công');
     }
 

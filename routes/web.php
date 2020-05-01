@@ -70,7 +70,6 @@ Route::group(['prefix'=>'admin'],function(){
 		Route::post('addquantri','usersController@addAdmin')->name('addAdmin');
 		Route::post('editquantri','usersController@editAdmin')->name('editAdmin');
 		Route::get('khachhang','usersController@getUsers')->name('users');
-		Route::get('them-khach-hang','usersController@viewAddUser')->name('viewAddUser');
 		Route::post('adduser','usersController@addUser')->name('addUser');
 		Route::post('edituser','usersController@editUser')->name('editUser');
 		Route::post('deleteuser','usersController@deleteUser')->name('delUser');

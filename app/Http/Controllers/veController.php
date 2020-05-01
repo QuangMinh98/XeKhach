@@ -13,6 +13,7 @@ use App\tinhden;
 use App\tuyen;
 use App\hang;
 use App\xe;
+use App\User;
 
 class veController extends Controller
 {
@@ -33,8 +34,8 @@ class veController extends Controller
     }
 
     public function danhsachve(Request $request){
-        if(isset($request->status) && $request->status != -1){
-            $ve = ve::where('tinhtrang',$request->status)
+        if(isset($request->sort) && $request->sort != -1){
+            $ve = ve::where('tinhtrang',$request->sort)
                 ->orderBy('created_at','desc')->get();
         }
         elseif (isset($request->search)) {
@@ -44,7 +45,7 @@ class veController extends Controller
         else{
             $ve = ve::all();
         }
-        return view('admin.ve.danhsach',['ve'=>$ve]);
+        return view('teamplate.ve.danhsach',['ve'=>$ve,'sort'=>$request->sort]);
     }
 
     public function thanhtoan(Request $request){
@@ -61,12 +62,13 @@ class veController extends Controller
 
     public function showDetail($id){
         $ve = ve::find($id);
+        $user = User::find($ve->idUser);
         $chuyen = ve::find($id)->chuyenxe;
         $lotrinh = lotrinh::find($chuyen->idLoTrinh);
         $tinhdi = tinhdi::find($lotrinh->idTinhDi);
         $tinhden = tinhden::find($lotrinh->idTinhDen);
         $tuyen = xe::find($lotrinh->idXe)->tuyen;
         $hang = xe::find($lotrinh->idXe)->hang;
-        return view('admin.ve.chitiet',['ve'=>$ve,'chuyen'=>$chuyen,'lotrinh'=>$lotrinh,'tinhdi'=>$tinhdi,'tinhden'=>$tinhden,'tuyen'=>$tuyen,'hang'=>$hang]);
+        return view('teamplate.ve.chitiet',['ve'=>$ve,'chuyen'=>$chuyen,'lotrinh'=>$lotrinh,'tinhdi'=>$tinhdi,'tinhden'=>$tinhden,'tuyen'=>$tuyen,'hang'=>$hang,'user'=>$user]);
     }
 }
