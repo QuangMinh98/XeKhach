@@ -53,7 +53,7 @@
 							<a href="{{route('showeditchuyen',['id'=>$ds->id])}}">
 								<span class="edit"><i class="fas fa-pencil-alt"></i></span>
 							</a>
-							<span class="delete" data-id = "{{$ds->idXe}}"><i class="fas fa-trash"></i></span>
+							<span class="delete" data-id = "{{$ds->id}}"><i class="fas fa-trash"></i></span>
 						</td>
 					</tr>
 					@endforeach
@@ -61,6 +61,23 @@
 			</table>
 		</div>
 	</div>
+@endsection
+
+@section('script')
+<script type="text/javascript">
+	$(document).ready(function(){
+		$(".delete").click(function(){
+			id = $(this).data('id');
+			if (confirm("Dữ liệu xoá sẽ không khôi phục được. Bạn có thật sự muốn xoá?")) {
+				$.post('{{route('delChuyen')}}',{id:id,_token:"{{csrf_token()}}"}).done(function(){
+					location.reload();
+				}).fail(function(){
+					alert('Không thể hoàn thành thao tác này');
+				})
+			}
+		})
+	})
+</script>
 @endsection
 
 

@@ -13,9 +13,6 @@
 							<td><p><strong>Tuyến xe:</strong><span>&nbsp{{$chuyen->tentuyen}}</span></p></td>
 						</tr>
 						<tr>
-							<td><p><strong>Hãng Xe:</strong><span>&nbsp{{$chuyen->tenhang}}</span></p></td>
-						</tr>
-						<tr>
 							<td><p><strong>Nơi Đi:</strong><span>&nbsp{{$chuyen->noidi}}</span></p></td>
 						</tr>
 						<tr>

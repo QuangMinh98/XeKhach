@@ -45,7 +45,7 @@ class veController extends Controller
         else{
             $ve = ve::all();
         }
-        return view('teamplate.ve.danhsach',['ve'=>$ve,'sort'=>$request->sort]);
+        return view('admin1.ve.danhsach',['ve'=>$ve,'sort'=>$request->sort]);
     }
 
     public function thanhtoan(Request $request){
@@ -68,7 +68,6 @@ class veController extends Controller
         $tinhdi = tinhdi::find($lotrinh->idTinhDi);
         $tinhden = tinhden::find($lotrinh->idTinhDen);
         $tuyen = xe::find($lotrinh->idXe)->tuyen;
-        $hang = xe::find($lotrinh->idXe)->hang;
-        return view('teamplate.ve.chitiet',['ve'=>$ve,'chuyen'=>$chuyen,'lotrinh'=>$lotrinh,'tinhdi'=>$tinhdi,'tinhden'=>$tinhden,'tuyen'=>$tuyen,'hang'=>$hang,'user'=>$user]);
+        return view('admin1.ve.chitiet',['ve'=>$ve,'chuyen'=>$chuyen,'lotrinh'=>$lotrinh,'tinhdi'=>$tinhdi,'tinhden'=>$tinhden,'tuyen'=>$tuyen,'user'=>$user]);
     }
 }

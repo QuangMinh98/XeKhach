@@ -37,7 +37,7 @@ class loaixeController extends Controller
         else{
             $loaixe = loaixe::all();
         }
-    	return view('teamplate.loaixe.danhsach',['loaixe'=>$loaixe,'sort'=>$request->sort]);
+    	return view('admin1.loaixe.danhsach',['loaixe'=>$loaixe,'sort'=>$request->sort]);
     }
 
     public function addLoaiXe(Request $request){

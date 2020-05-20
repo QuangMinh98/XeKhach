@@ -15,15 +15,15 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::group(['prefix'=>'admin'],function(){
-	Route::group(['prefix'=>'tuyenxe'],function(){
+Route::group(['prefix'=>'admin','middleware'=>'checkLogin'],function(){
+	Route::group(['prefix'=>'tuyenxe','middleware'=>'checkSPAdmin'],function(){
 		Route::get('danhsach','tuyenController@getDanhSach')->name('tuyen');
 		Route::post('add','tuyenController@addTuyen')->name('addtuyen');
 		Route::post('edit','tuyenController@editTuyen')->name('edittuyen');
 		Route::post('delete','tuyenController@deleteTuyen')->name('deletetuyen');
 		Route::post('tinhtrang','tuyenController@changeStatus')->name('statusTuyen');
 	});
-	Route::group(['prefix'=>'hangxe'],function(){
+	Route::group(['prefix'=>'hangxe','middleware'=>'checkSPAdmin'],function(){
 		Route::get('danhsach','hangController@getDanhSach')->name('hang');
 		Route::get('add','hangController@showAdd')->name('showAdd');
 		Route::post('addhang','hangController@addHang')->name('addhang');
@@ -31,13 +31,13 @@ Route::group(['prefix'=>'admin'],function(){
 		Route::post('edithang','hangController@editHang')->name('edithang');
 		Route::post('delete','hangController@deleteHang')->name('deletehang');
 	});
-	Route::group(['prefix'=>'loaixe'],function(){
+	Route::group(['prefix'=>'loaixe','middleware'=>'checkSPAdmin'],function(){
 		Route::get('danhsach','loaixeController@getDanhSach')->name('loaixe');
 		Route::post('add','loaixeController@addLoaiXe')->name('addloaixe');
 		Route::post('edit','loaixeController@editLoaiXe')->name('editloaixe');
 		Route::post('delete','loaixeController@deleteLoaiXe')->name('deleteloaixe');
 	});
-	Route::group(['prefix'=>'xekhach'],function(){
+	Route::group(['prefix'=>'xekhach','middleware'=>'checkSPAdmin'],function(){
 		Route::get('danhsach','xeController@getDanhSach')->name('xe');
 		Route::get('add','xeController@showAdd')->name('showaddxe');
 		Route::post('addxe','xeController@addXe')->name('addxe');
@@ -48,12 +48,12 @@ Route::group(['prefix'=>'admin'],function(){
 		Route::post('delete','xeController@delXe')->name('delXe');
 		Route::post('changeStatus','xeController@changeStatus')->name('statusXe');
 	});
-	Route::group(['prefix'=>'tinh'],function(){
+	Route::group(['prefix'=>'tinh','middleware'=>'checkSPAdmin'],function(){
 		Route::get('danhsach','tinhController@getDanhSach')->name('tinh');
 		Route::post('add','tinhController@addTinh')->name('addtinh');
 		Route::post('edit','tinhController@editTinh')->name('editTinh');
 	});
-	Route::group(['prefix'=>'chuyenxe'],function(){
+	Route::group(['prefix'=>'chuyenxe','middleware'=>'checkSPAdmin'],function(){
 		Route::get('danhsach','chuyenxeController@getDanhSach')->name('chuyenxe');
 		Route::get('add','chuyenxeController@showAdd')->name('showaddchuyen');
 		Route::post('addchuyen','chuyenxeController@addChuyen')->name('addchuyen');
@@ -65,7 +65,7 @@ Route::group(['prefix'=>'admin'],function(){
 		Route::get('changeStatus','chuyenxeController@changeStatus')->name('changeStatus');
 		Route::post('delete','chuyenxeController@deleteChuyen')->name('delChuyen');
 	});
-	Route::group(['prefix'=>'users'],function(){
+	Route::group(['prefix'=>'users','middleware'=>'checkAdmin'],function(){
 		Route::get('quantri','usersController@getAdmin')->name('admin');
 		Route::post('addquantri','usersController@addAdmin')->name('addAdmin');
 		Route::post('editquantri','usersController@editAdmin')->name('editAdmin');
@@ -74,13 +74,43 @@ Route::group(['prefix'=>'admin'],function(){
 		Route::post('edituser','usersController@editUser')->name('editUser');
 		Route::post('deleteuser','usersController@deleteUser')->name('delUser');
 	});
-	Route::group(['prefix'=>'quanlyve'],function(){
+	Route::group(['prefix'=>'quanlyve','middleware'=>'checkSPAdmin'],function(){
 		Route::get('danhsach','veController@danhsachve')->name('ve');
 		Route::post('thanhtoan','veController@thanhtoan')->name('thanhtoan');
 		Route::post('tiepnhan','veController@tiepnhan')->name('tiepnhan');
 		Route::get('chitiet/{id}','veController@showDetail')->name('chitietve');
 	});
+	Route::group(['prefix'=>'tintuc','middleware'=>'checkSPAdmin'],function(){
+		Route::get('danhsach','tintucController@getDanhSach')->name('tintuc');
+		Route::get('add','tintucController@showAdd')->name('showAddTin');
+		Route::post('addTin','tintucController@addTin')->name('addTin');
+		Route::get('edit/{id}','tintucController@showEdit')->name('showEditTin');
+		Route::post('editTin','tintucController@editTin')->name('editTin');
+		Route::post('deleteTin','tintucController@deleteTin')->name('delTin');
+	});
+	Route::group(['prefix'=>'thongtin','middleware'=>'checkSPAdmin'],function(){
+		Route::get('huong-dan-va-gioi-thieu','thongtinController@getDanhSach')->name('thongtin');
+		Route::get('add','thongtinController@showAdd')->name('showAddThongTin');
+		Route::post('addThongTin','thongtinController@addThongTin')->name('addThongTin');
+		Route::get('edit/{id}','thongtinController@showEdit')->name('showEditThongTin');
+		Route::post('editThongTin','thongtinController@editThongTin')->name('editThongTin');
+		Route::post('delete','thongtinController@deleteThongTin')->name('delThongTin');
+		Route::post('changeGioiThieu','thongtinController@changeGioiThieu')->name('changeGioiThieu');
+	});
+	Route::group(['prefix'=>'lienhe','middleware'=>'checkSPAdmin'],function(){
+		Route::get('danhsach','lienheController@getDanhSach')->name('lienhe');
+		Route::post('add','lienheController@addLienHe')->name('addLienHe');
+		Route::post('edit','lienheController@editLienHe')->name('editLienHe');
+		Route::post('delete','lienheController@deleteLienHe')->name('delLienHe');
+	});
+	Route::get('logout','usersController@logOut')->name('logOutAdmin');
+	Route::get('info','usersController@getInfo')->name('getInfo');
+	Route::post('changeInfo','usersController@changeInfo')->name('changeInfoAdmin');
+	Route::get('password','usersController@getChangePass')->name('getChangePass');
+	Route::post('changePassword','usersController@changePassword')->name('changePasswordAdmin');
 });
+Route::get('admin/login','usersController@viewLogin')->name('getLogin');
+Route::post('loginAdmin','usersController@Login')->name('loginAdmin');
 
 Route::get('login','usersController@getLogin')->name('login');
 Route::post('demoLogin','usersController@Login')->name('demologin');
@@ -90,21 +120,26 @@ Route::get('demoChiTiet/{id}','chuyenxeController@demoChiTiet')->name('demochiti
 route::post('datve','veController@datve')->name('datve');
 route::get('trangchu','viewController@viewHome')->name('home');
 route::get('search','viewController@viewSearch')->name('search');
+route::get('tuyen','viewController@viewSearchTuyen')->name('searchTuyen');
 route::get('chitiet/{id}','viewController@viewDetail')->name('chitiet');
 route::get('dangnhap','viewController@viewLogin')->name('viewLogin');
 route::get('dangky','viewController@viewRegister')->name('viewRegister');
 route::post('register','viewController@register')->name('register');
 route::post('login','viewController@login')->name('login');
+route::get('huong-dan','viewController@getHuongDan')->name('huongdan');
+route::get('tin-tuc','viewController@getTinTuc')->name('tintuc1');
+route::get('tin-tuc/{tieude}','viewController@viewTin')->name('viewTin');
+route::get('thong-tin/{tieude}','viewController@viewThongTin')->name('viewThongTin');
 route::post('checkout','viewController@checkout')->name('checkout')->middleware('checkLogin');
 route::post('success','viewController@datve')->name('success')->middleware('checkLogin');
-route::group(['prefix'=>'ve-cua-toi','middleware'=>'checkLogin'],function(){
+route::group(['prefix'=>'ve-cua-toi','middleware'=>'checkUser'],function(){
 	route::get('ve-da-dat','viewController@getTicket')->name('ticket');
 	route::get('ve-thanh-cong','viewController@getSuccess')->name('successticket');
 	route::get('ve-da-huy','viewController@getCancel')->name('cancel');
 	route::get('/{id}','viewController@getTicketById')->name('ticketById');
 	route::post('huy-ve','viewController@cancelTicket')->name('cancelTicket');
 });
-route::group(['prefix'=>'tai-khoan','middleware'=>'checkLogin'],function(){
+route::group(['prefix'=>'tai-khoan','middleware'=>'checkUser'],function(){
 	route::get('thong-tin','viewController@viewInfo')->name('viewInfo');
 	route::post('sua-thong-tin','viewController@changeInfo')->name('changeInfo');
 	route::get('doi-mat-khau','viewController@viewChangePassword')->name('viewChangePassword');

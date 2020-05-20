@@ -29,11 +29,18 @@
 								</tr>
 								<tr>
 									<td>
-										<p><strong>Thanh Toán:</strong>
+										<p><strong>Thanh Toán:</strong>			
+											@if($ve->tinhtrang == 2 || $ve->tinhtrang ==3)
+											<div class="custom-control custom-checkbox">
+												<input type="checkbox" class="custom-control-input" data-id="{{$ve->id}}" id="customCheck" name="example1" @if($ve->thanhtoan == 1) checked @endif disabled>
+												<label class="custom-control-label" for="customCheck"></label>
+											</div>
+											@else
 											<div class="custom-control custom-checkbox">
 												<input type="checkbox" class="custom-control-input" data-id="{{$ve->id}}" id="customCheck" name="example1" @if($ve->thanhtoan == 1) checked @endif>
 												<label class="custom-control-label" for="customCheck"></label>
 											</div>
+											@endif
 										</p>
 									</td>
 								</tr>

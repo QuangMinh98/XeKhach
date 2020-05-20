@@ -70,12 +70,19 @@
 							@break
 						@endswitch
 						<td>
+							@if($ds->tinhtrang == 2 || $ds->tinhtrang ==3)
 							<div class="custom-control custom-checkbox">
-								<input type="checkbox" class="custom-control-input" data-id="{{$ds->id}}" id="customCheck" name="example1" @if($ds->thanhtoan == 1) checked @endif>
-								<label class="custom-control-label" for="customCheck"></label>
+								<input type="checkbox" class="custom-control-input" data-id="{{$ds->id}}" id="{{$ds->id}}" name="{{$ds->id}}" @if($ds->thanhtoan == 1) checked @endif disabled>
+								<label class="custom-control-label" for="{{$ds->id}}"></label>
 							</div>
+							@else
+							<div class="custom-control custom-checkbox">
+								<input type="checkbox" class="custom-control-input" data-id="{{$ds->id}}" id="{{$ds->id}}" name="{{$ds->id}}" @if($ds->thanhtoan == 1) checked @endif>
+								<label class="custom-control-label" for="{{$ds->id}}"></label>
+							</div>
+							@endif
 						</td>
-						<td>{{$ds->created_at}}</td>
+						<td> {{date('d-m-yy G:i',strtotime($ds->created_at)+7*60*60)}}</td>
 						<td><a href="{{route('chitietve',['id'=>$ds->id])}}" class="badge badge-info">Chi Tiết</a></td>
 					</tr>
 					@endforeach

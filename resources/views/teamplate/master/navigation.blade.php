@@ -39,15 +39,21 @@
         </div>
       </div>
       <a href="{{route('ve')}}">Quản Lý Vé</a>
-      <p class="title">Legal Section</p>
+      <p class="title">Thông Tin</p>
       <div class="dropdown">
-        <p>Documents</p>
-        <div class="links" style="height: 0px;">
-          <a href="">Contract</a>
-          <a href="">Employee Handbook</a>
+        <p>Tin Tức</p>
+        <div class="links" style="height: auto;">
+          <a href="{{route('tintuc')}}">Danh Sách Tin Tức</a>
+          <a href="{{route('showAddTin')}}">Thêm Tin Tức</a>
         </div>
       </div>
-      <a href="">Terms &amp; Conditions</a>
-      <a href="">Copyright Details</a>
+      <div class="dropdown">
+        <p>Hướng Dẫn &amp; Giới Thiệu</p>
+        <div class="links" style="height: auto;">
+          <a href="{{route('thongtin')}}">Danh Sách</a>
+          <a href="{{route('showAddThongTin')}}">Thêm</a>
+        </div>
+      </div>
+      <a href="{{route('lienhe')}}">Thông Tin Liên Hệ</a>
     </div>
   </div>

@@ -51,15 +51,15 @@ class xeController extends Controller
                 ->select('xe.id as idXe','tenhang','tenxe','tentuyen','xe.tinhtrang','sotang','soghe','biensoxe')
                 ->get();
         }
-    	return view('teamplate.xe.danhsach',['xe'=>$xe,'sort'=>$request->sort,'hang'=>$hang]);
+    	return view('admin1.xe.danhsach',['xe'=>$xe,'sort'=>$request->sort,'hang'=>$hang]);
     }
 
     public function showAdd(){
-    	$hang = hang::all();
+    	//$hang = hang::all();
     	$tuyen = tuyen::all();
     	$loaixe = loaixe::all();
         $tinh = tinhdi::all();
-    	return view('teamplate.xe.add',['hangxe'=>$hang,'tuyen'=>$tuyen,'loaixe'=>$loaixe,'tinh'=>$tinh]);
+    	return view('admin1.xe.add',[/*'hangxe'=>$hang,*/'tuyen'=>$tuyen,'loaixe'=>$loaixe,'tinh'=>$tinh]);
     }
 
     public function addXe(Request $request){
@@ -76,7 +76,7 @@ class xeController extends Controller
         ]);
         $xe = new xe;
         $xe->idtuyen = $request->idtuyen;
-        $xe->idHang = $request->idhang;
+        $xe->idHang = 1;
         $xe->idloaixe = $request->idloaixe;
         $xe->tenxe = $request->name;
         $xe->mauxe = $request->mauxe;
@@ -128,7 +128,7 @@ class xeController extends Controller
                 ->select('lotrinh.id','tinhdi.tentinh as tentinhdi','noidi','tinhden.tentinh as tentinhden','noiden')
                 ->orderBy('id','asc')
                 ->first();
-        return view('teamplate.xe.chitiet',['xe'=>$xe,'tuyen'=>$tuyen,'hang'=>$hang,'loaixe'=>$loaixe,'lotrinh'=>$lotrinh,'ghe'=>$ghe]);
+        return view('admin1.xe.chitiet',['xe'=>$xe,'tuyen'=>$tuyen,'hang'=>$hang,'loaixe'=>$loaixe,'lotrinh'=>$lotrinh,'ghe'=>$ghe]);
     }
 
     public function editSeat(Request $request){
@@ -147,18 +147,17 @@ class xeController extends Controller
         $xe = xe::find($id);
         $lotrinhdi = lotrinh::where('idXe',$id)->first();
         $lotrinhve = lotrinh::where('idXe',$id)->orderBy('id','desc')->first();
-        $hang = hang::all();
+        //$hang = hang::all();
         $loaixe = loaixe::all();
         $tuyen = tuyen::all();
         $tinhdi = tinhdi::all();
-        return view('teamplate.xe.edit',['xe'=>$xe,'hangxe'=>$hang,'loaixe'=>$loaixe,'tuyen'=>$tuyen,'tinh'=>$tinhdi,'lotrinhdi'=>$lotrinhdi,'lotrinhve'=>$lotrinhve]);
+        return view('admin1.xe.edit',['xe'=>$xe,/*'hangxe'=>$hang,*/'loaixe'=>$loaixe,'tuyen'=>$tuyen,'tinh'=>$tinhdi,'lotrinhdi'=>$lotrinhdi,'lotrinhve'=>$lotrinhve]);
     }
 
     public function editXe(Request $request){
         $this->validate($request,[
             'idtuyen' => 'required',
             'idloaixe' => 'required',
-            'idhang' => 'required',
             'name' => 'required|min:5|max:255',
             'mauxe' => 'required',
             'bienso' => 'required',
@@ -170,7 +169,6 @@ class xeController extends Controller
         ]);
         $xe = xe::find($request->id);
         $xe->idtuyen = $request->idtuyen;
-        $xe->idHang = $request->idhang;
         $xe->idloaixe = $request->idloaixe;
         $xe->tenxe = $request->name;
         $xe->mauxe = $request->mauxe;

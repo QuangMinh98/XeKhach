@@ -37,6 +37,10 @@
         "classmap": [
             "database/seeds",
             "database/factories"
+        ],
+        "files": [
+            "app/function/tenkhongdau.php",
+            "app/function/getid.php"
         ]
     },
     "autoload-dev": {

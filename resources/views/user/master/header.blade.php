@@ -14,33 +14,124 @@
     @yield('style')
 </head>
 <body>
-	<header style="background: #28a745">
+	<div id="preload" class="preload-container text-center">
+        <span class="fas fa-spinner preload-icon rotating"></span>
+      </div>
+	<header style="background: #ef5222; margin-bottom: 20px;">
 		<div class="container">
 			@include('user.master.navigation')
 		</div>
 	</header>
 	@yield('noidung')
 	<div class="footer">
-		<div class="container" style="background: #28a745">
+		<div class="container" style="background: #ef5222;">
 			<div class="row">
 				<div class="col-md-6">
 					<h4>Thông Tin:</h4>
-					<a href="">Giới Thiệu</a><br>
-					<a href="">Liên Hệ</a><br>
-					<a href="">Tin Tức</a>
+          @if(isset($gioithieu))
+					<a href="{{route('viewThongTin',['tieude'=>$gioithieu->tenkhongdau.'-'.$gioithieu->id])}}" style="color: #fff;">Giới Thiệu</a><br>
+          @else
+          <a href="#" style="color: #fff;">Giới Thiệu</a><br>
+          @endif
+					<a href="" style="color: #fff;">Liên Hệ</a><br>
+					<a href="{{route('tintuc1')}}" style="color: #fff;">Tin Tức</a>
 				</div>
 				<div class="col-md-6">
 					<h4>Hướng dẫn:</h4>
-					<a href="">Hướng dẫn thanh toán</a><br>
-					<a href="">Hướng dẫn đặt vé</a>
+          @foreach($huongdan1 as $ds)
+					<a href="{{route('viewThongTin',['tieude'=>$ds->tenkhongdau.'-'.$ds->id])}}" style="color: #fff;">{{$ds->tieude}}</a><br>
+          @endforeach
 				</div>
 				<div class="col-md-8" style="padding-top: 20px;">
-					<h4>Kết nối với chúng tôi tại:</h4>
-					<a href="" style="font-size: 40px;"><i class="fab fa-facebook"></i></a>&nbsp &nbsp &nbsp &nbsp<a href="" style="font-size: 40px;"><i class="fab fa-google"></i></a>
+					<h4>Kết nối với chúng tôi tại: &nbsp &nbsp &nbsp &nbsp <a href="" style="font-size: 30px; color: #fff;"><i class="fab fa-facebook"></i></a>&nbsp &nbsp &nbsp &nbsp<a href="" style="font-size: 30px; color: #fff;"><i class="fab fa-google"></i></a></h4>
+					
 				</div>
 			</div>
 		</div>
 		@yield('script')
+		<script>
+      document.addEventListener('DOMContentLoaded', function() {
+                var mediaElements = document.querySelectorAll('video, audio'), total = mediaElements.length;
+                for (var i = 0; i < total; i++) {
+                    new MediaElementPlayer(mediaElements[i], {
+                        pluginPath: 'https://cdn.jsdelivr.net/npm/mediaelement@4.2.7/build/',
+                        shimScriptAccess: 'always',
+                        success: function () {
+                            var target = document.body.querySelectorAll('.player'), targetTotal = target.length;
+                            for (var j = 0; j < targetTotal; j++) {
+                                target[j].style.visibility = 'visible';
+                            }
+                  }
+                });
+                }
+            });
+      $(window).on("load",function(){
+      	 
+          $('body').removeClass('preloading');
+          $('#preload').fadeOut('fast');
+      });
+    </script>
+    <style type="text/css">
+  .preloading {
+    overflow: hidden;
+}
+.preload-container {
+    width: 100%;
+    height: 100%;
+    background: #00b8ff;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    z-index: 99999999999;
+    display: block;
+    padding-right: 17px;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+.preload-icon {
+    font-size: 66px;
+    color: #fff;
+    margin-top: 20%;
+}
+@-webkit-keyframes {
+  from {
+    -webkit-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+@keyframes rotating {
+  from {
+    -ms-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -webkit-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  to {
+    -ms-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -webkit-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+.rotating {
+  -webkit-animation: rotating 1.5s linear infinite;
+  -moz-animation: rotating 1.5s linear infinite;
+  -ms-animation: rotating 1.5s linear infinite;
+  -o-animation: rotating 1.5s linear infinite;
+  animation: rotating 1.5s linear infinite;
+}
+</style>
+
 	</div>
 </body>
 </html>

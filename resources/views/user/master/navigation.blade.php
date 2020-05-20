@@ -1,6 +1,6 @@
-<nav class="navbar navbar-expand-sm navbar-dark" style="background: #28a745">
+<nav class="navbar navbar-expand-sm navbar-dark" style="background: #ef5222;">
   <!-- Brand -->
-  <a class="navbar-brand" href="#"><img src="https://futabus.vn/Content/img/logo-futa-edit.png" style="width: 225px;"></a>
+  <a class="navbar-brand" href="#"><img class="logo" src="https://futabus.vn/Content/img/logo-futa-edit.png"></a>
 
   <!-- Toggler/collapsibe Button -->
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
@@ -13,14 +13,20 @@
       <li class="nav-item">
         <a class="nav-link" href="{{route('home')}}"><i class="fas fa-home"></i><hr class="hov"></a>
       </li>
+      @if(isset($gioithieu))
+      <li class="nav-item">
+        <a class="nav-link" href="{{route('viewThongTin',['tieude'=>$gioithieu->tenkhongdau.'-'.$gioithieu->id])}}">Giới Thiệu <hr class="hov"></a>
+      </li>
+      @else
       <li class="nav-item">
         <a class="nav-link" href="#">Giới Thiệu <hr class="hov"></a>
       </li>
+      @endif
       <li class="nav-item">
-        <a class="nav-link" href="#">Hướng Dẫn <hr class="hov"></a>
+        <a class="nav-link" href="{{route('huongdan')}}">Hướng Dẫn <hr class="hov"></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Tin Tức <hr class="hov"></a>
+        <a class="nav-link" href="{{route('tintuc1')}}">Tin Tức <hr class="hov"></a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="#">Liên Hệ <hr class="hov"></a>

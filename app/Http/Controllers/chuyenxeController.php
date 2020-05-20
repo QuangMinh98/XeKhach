@@ -110,20 +110,18 @@ class chuyenxeController extends Controller
     				->select('chuyen.id','tuyen.tentuyen','hang.tenhang','xe.tenxe','xe.biensoxe','xe.soghe','tinhdi.tentinh as tentinhdi','tinhden.tentinh as tentinhden','lotrinh.noidi','lotrinh.noiden','chuyen.giodi','chuyen.gioden','chuyen.giave','chuyen.tinhtrang')
     				->get();
     		}
-    	return view('teamplate.chuyenxe.danhsach',['chuyen'=>$chuyen,'sort'=>$request->sort,'tinh'=>$tinh]);
+    	return view('admin1.chuyenxe.danhsach',['chuyen'=>$chuyen,'sort'=>$request->sort,'tinh'=>$tinh]);
     }
 
     public function showAdd(){
-    	$hangxe = hang::all();
     	$tuyen = tuyen::all();
     	$loaixe = loaixe::all();
     	$xe = xe::all();
-    	return view('teamplate.chuyenxe.add',['hangxe'=>$hangxe,'tuyen'=>$tuyen,'loaixe'=>$loaixe,'xe'=>$xe]);
+    	return view('admin1.chuyenxe.add',['tuyen'=>$tuyen,'loaixe'=>$loaixe,'xe'=>$xe]);
     }
 
     public function ajaxXe(Request $request){
-    	$xe = xe::where('idHang','=',$request->idHang)
-    		->where('idTuyen','=',$request->idTuyen)
+    	$xe = xe::where('idTuyen','=',$request->idTuyen)
     		->where('idLoaiXe','=',$request->idLoaiXe)
     		->get();
     	return view('admin.chuyenxe.ajax',['xe'=>$xe]);
@@ -154,24 +152,22 @@ class chuyenxeController extends Controller
     }
 
     public function showEdit($id){
-        $hang = hang::all();
         $tuyen = tuyen::all();
         $loaixe = loaixe::all();
         $xe = xe::all();
         $chuyen = chuyen::join('lotrinh','chuyen.idLoTrinh','lotrinh.id')
                     ->join('xe','lotrinh.idXe','xe.id')
-                    ->join('hang','xe.idHang','hang.id')
                     ->join('tuyen','xe.idTuyen','tuyen.id')
                     ->join('loaixe','xe.idLoaiXe','loaixe.id')
                     ->where('chuyen.id',$id)
-                    ->select('chuyen.id','chuyen.idLoTrinh','xe.id as idXe','tuyen.id as idTuyen','hang.id as idHang','loaixe.id as idLoaiXe','chuyen.giodi','chuyen.gioden','chuyen.giave')
+                    ->select('chuyen.id','chuyen.idLoTrinh','xe.id as idXe','tuyen.id as idTuyen','loaixe.id as idLoaiXe','chuyen.giodi','chuyen.gioden','chuyen.giave')
                     ->first();
         $lotrinh = lotrinh::join('tinhdi','lotrinh.idTinhDi','tinhdi.id')
                 ->join('tinhden','lotrinh.idTinhDen','tinhden.id')
                 ->where('idXe',$chuyen->idXe)
                 ->select('lotrinh.id','tinhdi.tentinh as tentinhdi','tinhden.tentinh as tentinhden','lotrinh.noidi','lotrinh.noiden')
                 ->get();
-        return view('teamplate.chuyenxe.edit',['hangxe'=>$hang,'tuyen'=>$tuyen,'loaixe'=>$loaixe,'xe'=>$xe,'chuyen'=>$chuyen,'lotrinh'=>$lotrinh]);
+        return view('admin1.chuyenxe.edit',['tuyen'=>$tuyen,'loaixe'=>$loaixe,'xe'=>$xe,'chuyen'=>$chuyen,'lotrinh'=>$lotrinh]);
     }
 
     public function editChuyen(Request $request){
@@ -185,7 +181,7 @@ class chuyenxeController extends Controller
         $chuyen->gioden=$request->ngayden;
         $chuyen->giave = $request->giave;
         $chuyen->save();
-        return redirect()->route('chuyenxe')->with('thongbao','Đã thêm thành công.');
+        return redirect()->route('chuyenxe')->with('thongbao','Đã chỉnh sửa thành công.');
     }
 
     public function showDetail($id){
@@ -207,7 +203,7 @@ class chuyenxeController extends Controller
         foreach($ve as $ticket){
             $arrayVe[] = $ticket->soghe;
         }
-        return view('teamplate.chuyenxe.chitiet',['chuyen'=>$chuyen,'sove'=>$sove,'xe'=>$xe,'ghe'=>$ghe,'ve'=>$arrayVe]);
+        return view('admin1.chuyenxe.chitiet',['chuyen'=>$chuyen,'sove'=>$sove,'xe'=>$xe,'ghe'=>$ghe,'ve'=>$arrayVe]);
     }
 
     public function changeStatus(Request $request){

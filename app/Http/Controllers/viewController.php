@@ -10,36 +10,71 @@ use App\chuyen;
 use App\xe;
 use App\ve;
 use App\User;
+use App\thongtin;
+use App\tintuc;
+use Illuminate\Support\Facades\View;
 
 class viewController extends Controller
 {
+
+    public function __construct() {
+        $gioithieu = thongtin::where('gioithieu',1)->first();
+        $huongdan1 = thongtin::where('gioithieu',0)->get();
+        View::share('gioithieu',$gioithieu);
+        View::share('huongdan1',$huongdan1);
+    }
+
     public function viewHome(){
     	$tinhdi = tinhdi::all();
     	$tuyen = tuyen::all();
-    	return view('user.trangchu',['diadiem'=>$tinhdi,'tuyen'=>$tuyen]);
+        $tintuc = tintuc::orderBy('created_at','desc')->take(4)->get();
+    	return view('user.trangchu',['diadiem'=>$tinhdi,'tuyen'=>$tuyen,'tintuc'=>$tintuc]);
     }
 
     public function viewSearch(Request $request){
     	$tinhdi = tinhdi::all();
+        $tintuc = tintuc::orderBy('created_at','desc')->take(4)->get();
     	if(isset($request->noidi)||isset($request->noiden)||isset($request->ngaydi)){
             $chuyen = chuyen::join('lotrinh','chuyen.idLoTrinh','lotrinh.id')
                     ->join('tinhdi','lotrinh.idTinhDi','tinhdi.id')
                     ->join('tinhden','lotrinh.idTinhDen','tinhden.id')
                     ->join('xe','lotrinh.idXe','xe.id')
-                    ->join('hang','xe.idHang','hang.id')
                     ->join('tuyen','xe.idTuyen','tuyen.id')
                     ->where('lotrinh.idTinhDi','=',$request->noidi)
                     ->where('lotrinh.idTinhDen','=',$request->noiden)
                     ->whereDate('chuyen.giodi','=',$request->ngaydi)
                     ->where('chuyen.tinhtrang',0)
                     ->orderBy('chuyen.giodi','desc')
-                    ->select('chuyen.id','tuyen.tentuyen','hang.tenhang','xe.tenxe','xe.biensoxe','xe.soghe','tinhdi.tentinh as tentinhdi','tinhden.tentinh as tentinhden','lotrinh.noidi','lotrinh.noiden','chuyen.giodi','chuyen.gioden','chuyen.giave','chuyen.tinhtrang')
+                    ->select('chuyen.id','tuyen.tentuyen','xe.tenxe','xe.biensoxe','xe.soghe','tinhdi.tentinh as tentinhdi','tinhden.tentinh as tentinhden','lotrinh.noidi','lotrinh.noiden','chuyen.giodi','chuyen.gioden','chuyen.giave','chuyen.tinhtrang')
                     ->get();
         }
         else{
         	$chuyen = array();
         }
-    	return view('user.search',['diadiem'=>$tinhdi,'chuyen'=>$chuyen,'request'=>$request]);
+    	return view('user.search',['diadiem'=>$tinhdi,'chuyen'=>$chuyen,'request'=>$request,'tintuc'=>$tintuc]);
+    }
+
+    public function viewSearchTuyen(Request $request){
+        $tinhdi = tinhdi::all();
+        $tintuc = tintuc::orderBy('created_at','desc')->take(4)->get();
+        $tuyen = tuyen::findOrFail($request->id);
+        if(isset($request->ngaydi)||isset($request->id)){
+            $chuyen = chuyen::join('lotrinh','chuyen.idLoTrinh','lotrinh.id')
+                    ->join('tinhdi','lotrinh.idTinhDi','tinhdi.id')
+                    ->join('tinhden','lotrinh.idTinhDen','tinhden.id')
+                    ->join('xe','lotrinh.idXe','xe.id')
+                    ->join('tuyen','xe.idTuyen','tuyen.id')
+                    ->where('tuyen.id',$request->id)
+                    ->whereDate('chuyen.giodi','=',$request->ngaydi)
+                    ->where('chuyen.tinhtrang',0)
+                    ->orderBy('chuyen.giodi','desc')
+                    ->select('chuyen.id','tuyen.tentuyen','xe.tenxe','xe.biensoxe','xe.soghe','tinhdi.tentinh as tentinhdi','tinhden.tentinh as tentinhden','lotrinh.noidi','lotrinh.noiden','chuyen.giodi','chuyen.gioden','chuyen.giave','chuyen.tinhtrang')
+                    ->get();
+        }
+        else{
+            $chuyen = array();
+        }
+        return view('user.tuyen',['diadiem'=>$tinhdi,'chuyen'=>$chuyen,'request'=>$request,'tintuc'=>$tintuc,'tuyen'=>$tuyen]);
     }
 
     public function viewDetail($id){
@@ -47,11 +82,10 @@ class viewController extends Controller
         ->join('tinhdi','lotrinh.idTinhDi','tinhdi.id')
         ->join('tinhden','lotrinh.idTinhDen','tinhden.id')
         ->join('xe','lotrinh.idXe','xe.id')
-        ->join('hang','xe.idHang','hang.id')
         ->join('tuyen','xe.idTuyen','tuyen.id')
         ->join('loaixe','xe.idLoaiXe','loaixe.id')
         ->where('chuyen.id',$id)
-        ->select('chuyen.id','chuyen.idLoTrinh','xe.id as idXe','lotrinh.noidi','lotrinh.noiden','tinhdi.tentinh as tentinhdi','tinhden.tentinh as tentinhden','tuyen.tentuyen','hang.tenhang','hang.img','loaixe.tenloaixe','chuyen.giodi','chuyen.gioden','chuyen.giave','chuyen.tinhtrang')
+        ->select('chuyen.id','chuyen.idLoTrinh','xe.id as idXe','lotrinh.noidi','lotrinh.noiden','tinhdi.tentinh as tentinhdi','tinhden.tentinh as tentinhden','tuyen.tentuyen','loaixe.tenloaixe','chuyen.giodi','chuyen.gioden','chuyen.giave','chuyen.tinhtrang')
         ->firstOrFail();
         $xe = xe::findOrFail($chuyen->idXe);
         $ghe = xe::findOrFail($chuyen->idXe)->ghe; 
@@ -61,7 +95,8 @@ class viewController extends Controller
         foreach($ve as $ticket){
             $arrayVe[] = $ticket->soghe;
         }
-        return view('user.detail',['chuyen'=>$chuyen,'sove'=>$sove,'xe'=>$xe,'ghe'=>$ghe,'ve'=>$arrayVe]);
+        $tintuc = tintuc::orderBy('created_at','desc')->take(4)->get();
+        return view('user.detail',['chuyen'=>$chuyen,'sove'=>$sove,'xe'=>$xe,'ghe'=>$ghe,'ve'=>$arrayVe,'tintuc'=>$tintuc]);
     }
 
     public function viewLogin(){
@@ -127,11 +162,10 @@ class viewController extends Controller
         ->join('tinhdi','lotrinh.idTinhDi','tinhdi.id')
         ->join('tinhden','lotrinh.idTinhDen','tinhden.id')
         ->join('xe','lotrinh.idXe','xe.id')
-        ->join('hang','xe.idHang','hang.id')
         ->join('tuyen','xe.idTuyen','tuyen.id')
         ->join('loaixe','xe.idLoaiXe','loaixe.id')
         ->where('chuyen.id',$request->idChuyen)
-        ->select('chuyen.id','chuyen.idLoTrinh','xe.id as idXe','lotrinh.noidi','lotrinh.noiden','tinhdi.tentinh as tentinhdi','tinhden.tentinh as tentinhden','tuyen.tentuyen','hang.tenhang','hang.img','loaixe.tenloaixe','chuyen.giodi','chuyen.gioden','chuyen.giave','chuyen.tinhtrang')
+        ->select('chuyen.id','chuyen.idLoTrinh','xe.id as idXe','lotrinh.noidi','lotrinh.noiden','tinhdi.tentinh as tentinhdi','tinhden.tentinh as tentinhden','tuyen.tentuyen','loaixe.tenloaixe','chuyen.giodi','chuyen.gioden','chuyen.giave','chuyen.tinhtrang')
         ->firstOrFail();
         $soghe = $request->soghe;        
         return view('user.checkout',['chuyen'=>$chuyen,'soghe'=>$soghe]);
@@ -165,14 +199,13 @@ class viewController extends Controller
             ->join('tinhdi','lotrinh.idTinhDi','tinhdi.id')
             ->join('tinhden','lotrinh.idTinhDen','tinhden.id')
             ->join('xe','lotrinh.idXe','xe.id')
-            ->join('hang','xe.idHang','hang.id')
             ->join('tuyen','xe.idTuyen','tuyen.id')
             ->join('users','users.id','ve.idUser')
             ->where('ve.idUser',$id)
             ->whereRaw('(ve.tinhtrang = 0 or ve.tinhtrang = 1)')
             ->orderBy('users.created_at','desc')
-            ->select('ve.id','tinhdi.tentinh as tentinhdi','tinhden.tentinh as tentinhden','chuyen.giodi','chuyen.gioden','lotrinh.noidi','lotrinh.noiden','hang.tenhang','tuyen.tentuyen','ve.soghe','ve.created_at','ve.tinhtrang')
-            ->paginate(10);
+            ->select('ve.id','tinhdi.tentinh as tentinhdi','tinhden.tentinh as tentinhden','chuyen.giodi','chuyen.gioden','lotrinh.noidi','lotrinh.noiden','tuyen.tentuyen','ve.soghe','ve.created_at','ve.tinhtrang')
+            ->paginate(5);
         return view('user.myticket',['ve'=>$ve,'nav'=>'0']);
     }
 
@@ -183,14 +216,13 @@ class viewController extends Controller
             ->join('tinhdi','lotrinh.idTinhDi','tinhdi.id')
             ->join('tinhden','lotrinh.idTinhDen','tinhden.id')
             ->join('xe','lotrinh.idXe','xe.id')
-            ->join('hang','xe.idHang','hang.id')
             ->join('tuyen','xe.idTuyen','tuyen.id')
             ->join('users','users.id','ve.idUser')
             ->where('ve.idUser',$id)
             ->where('ve.tinhtrang','2')
             ->orderBy('ve.created_at','desc')
-            ->select('ve.id','tinhdi.tentinh as tentinhdi','tinhden.tentinh as tentinhden','chuyen.giodi','chuyen.gioden','lotrinh.noidi','lotrinh.noiden','hang.tenhang','tuyen.tentuyen','ve.soghe','ve.created_at','ve.tinhtrang')
-            ->paginate(10);
+            ->select('ve.id','tinhdi.tentinh as tentinhdi','tinhden.tentinh as tentinhden','chuyen.giodi','chuyen.gioden','lotrinh.noidi','lotrinh.noiden','tuyen.tentuyen','ve.soghe','ve.created_at','ve.tinhtrang')
+            ->paginate(5);
         return view('user.myticket',['ve'=>$ve,'nav'=>'2']);
     }
 
@@ -201,14 +233,13 @@ class viewController extends Controller
             ->join('tinhdi','lotrinh.idTinhDi','tinhdi.id')
             ->join('tinhden','lotrinh.idTinhDen','tinhden.id')
             ->join('xe','lotrinh.idXe','xe.id')
-            ->join('hang','xe.idHang','hang.id')
             ->join('tuyen','xe.idTuyen','tuyen.id')
             ->join('users','users.id','ve.idUser')
             ->where('ve.idUser',$id)
             ->where('ve.tinhtrang','3')
             ->orderBy('ve.created_at','desc')
-            ->select('ve.id','tinhdi.tentinh as tentinhdi','tinhden.tentinh as tentinhden','chuyen.giodi','chuyen.gioden','lotrinh.noidi','lotrinh.noiden','hang.tenhang','tuyen.tentuyen','ve.soghe','ve.created_at','ve.tinhtrang')
-            ->paginate(10);
+            ->select('ve.id','tinhdi.tentinh as tentinhdi','tinhden.tentinh as tentinhden','chuyen.giodi','chuyen.gioden','lotrinh.noidi','lotrinh.noiden','tuyen.tentuyen','ve.soghe','ve.created_at','ve.tinhtrang')
+            ->paginate(5);
         return view('user.myticket',['ve'=>$ve,'nav'=>'3']);
     }
 
@@ -218,12 +249,11 @@ class viewController extends Controller
             ->join('tinhdi','lotrinh.idTinhDi','tinhdi.id')
             ->join('tinhden','lotrinh.idTinhDen','tinhden.id')
             ->join('xe','lotrinh.idXe','xe.id')
-            ->join('hang','xe.idHang','hang.id')
             ->join('tuyen','xe.idTuyen','tuyen.id')
             ->join('users','users.id','ve.idUser')
             ->where('ve.id',$id)
             ->orderBy('ve.created_at','desc')
-            ->select('ve.id','tinhdi.tentinh as tentinhdi','tinhden.tentinh as tentinhden','chuyen.giodi','chuyen.gioden','lotrinh.noidi','lotrinh.noiden','hang.tenhang','tuyen.tentuyen','ve.soghe','ve.created_at','ve.tinhtrang','users.name','ve.idUser','chuyen.id as idChuyen')
+            ->select('ve.id','tinhdi.tentinh as tentinhdi','tinhden.tentinh as tentinhden','chuyen.giodi','chuyen.gioden','lotrinh.noidi','lotrinh.noiden','tuyen.tentuyen','ve.soghe','ve.created_at','ve.tinhtrang','users.name','ve.idUser','chuyen.id as idChuyen','ve.thanhtoan')
             ->firstOrFail();
         if(Auth::check()){
             $user = Auth::user()->id;
@@ -314,4 +344,39 @@ class viewController extends Controller
         Auth::logout();
         return redirect()->route('home');
     }
+
+    public function getHuongDan(){
+        $tinhdi = tinhdi::all();
+        $huongdan = thongtin::where('gioithieu',0)->get();
+        $tintuc = tintuc::take(5);
+        return view('user.huongdan',['diadiem'=>$tinhdi,'huongdan'=>$huongdan,'tintuc'=>$tintuc]);
+    }
+
+    public function getTinTuc(){
+        $tinhdi = tinhdi::all();
+        $thongtin = thongtin::all();
+        $tintuc = tintuc::orderBy('created_at','desc')->paginate(10);
+        return view('user.tintuc',['diadiem'=>$tinhdi,'tintuc'=>$tintuc,'thongtin'=>$thongtin]);
+    }
+
+    public function viewTin($tieude){
+        $id = getid($tieude);
+        $tintuc = tintuc::find($id);
+        $luotxem = $tintuc->luotxem;
+        tintuc::find($id)->update(['luotxem'=>$luotxem+1]);
+        $tintuckhac = tintuc::where('id','!=',$id)->orderBy('created_at','desc')->take(5)->get();
+        $tinhdi = tinhdi::all();
+        $thongtin = thongtin::all();
+        return view('user.chitiettintuc',['diadiem'=>$tinhdi,'thongtin'=>$thongtin,'tintuc'=>$tintuc,'tintuckhac'=>$tintuckhac]);
+    }
+
+    public function viewThongTin($tieude){
+        $id = getid($tieude);
+        $thongtin = thongtin::find($id);
+        $thongtinkhac = thongtin::where('id','!=',$id)->get();
+        $tintuc = tintuc::orderBy('created_at','desc')->take(5)->get();
+        $tinhdi = tinhdi::all();
+        return view('user.thongtinchitet',['thongtin'=>$thongtin,'diadiem'=>$tinhdi,'tintuc'=>$tintuc,'thongtinkhac'=>$thongtinkhac]);
+    }
+
 }

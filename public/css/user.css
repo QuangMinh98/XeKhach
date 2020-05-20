@@ -30,6 +30,33 @@ li{
 	box-shadow: 0 10px 50px 0 rgba(0,0,0,.25);
 }
 
+.other{
+	width: 350px;
+}
+
+.other h4{
+	font-size: 18px;
+	width: 100%;
+	text-align: center;
+	padding: 10px 0px;
+	background: #6c757d;
+	color: #fff;
+	margin-bottom: 0;
+}
+
+.other a{
+	text-decoration: none;
+}
+
+.other h5{
+	font-size: 14px;
+	color: #fd7e14;
+}
+
+.other h5:hover{
+	color: #dc3545;
+}
+
 .header-booking h1{
 	font-size: 18px;
 }
@@ -69,6 +96,14 @@ li{
 	.list-news ul{
 		padding-left: 0;
 	}
+
+	.other{
+		width: 100%;
+	}
+}
+
+.logo{
+	height: 60px;
 }
 
 @media screen and (max-width: 575px) {
@@ -81,22 +116,37 @@ li{
 	}
 }
 
+@media screen and (min-width: 576px){
+	.navbar{
+		 height: 60px;
+	}
+
+	.logo{
+		height: 80px;
+	}
+
+	.navbar-brand {
+	    padding-top: 2.3125rem !important;
+	}
+
+}
+
 .news h3{
 	font-size: 18px;
 	padding-bottom: 5px;
-	border-bottom: 2px solid #28a745;
+	border-bottom: 2px solid #ef5222;
 }
 
 .news h4{
 	margin-top: 15px;
 	margin-bottom: 5px; 
 	font-size: 15px;
-	color: #28a745;
+	color: #ef5222;
 	font-weight: bold;
 }
 
 .news h3 li{
-	color: #28a745;
+	color: #ef5222;
 }
 
 .first-news img{
@@ -116,7 +166,7 @@ li{
 .tuyenxe h3{
 	font-size: 18px;
 	padding-bottom: 5px;
-	border-bottom: 2px solid #28a745;
+	border-bottom: 2px solid #ef5222;
 }
 
 .btn-date{
@@ -126,7 +176,7 @@ li{
 
 
 .footer{
-	background: #28a745;
+	background: #ef5222;
 	padding-top: 30px;
 	padding-bottom: 20px; 
 }
@@ -160,5 +210,43 @@ li{
 
 .navbar-dark .navbar-nav .nav-link{
 	color: #fff;
+	height: 50px;
 }
 
+.top-title h4{
+	padding: 20px 0px;
+}
+
+.list-new a{
+	text-decoration: none;
+}
+
+.list-new h5{
+	font-size: 17px;
+	color: #fd7e14;
+}
+
+.list-new h5:hover{
+	color: #dc3545;
+}
+
+.list-new p{
+	font-size: 13px;
+}
+
+.list-new table tr td{
+	padding-top: 20px;
+	padding-bottom: 20px;
+}
+.news table tbody tr td h5{
+	font-size: 14px;
+	color: #fd7e14;
+}
+
+.news table tbody tr td h5:hover{
+	color: #dc3545;
+}
+
+.news a{
+	text-decoration: none;
+}

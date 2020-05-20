@@ -28,29 +28,25 @@
 							<tr>
 								<td>
 									<div class="row">
-										<div class="id col-md-2">
+										<!--<div class="id col-md-2">
 											<h4>Mã vé: {{$list->id}}</h4>
-										</div>
-										<div class="hang col-md-3">
-											<h4>Hãng xe: {{$list->tenhang}}</h4>
-										</div>
-										<div class="name col-md-4">
+										</div>-->
+										<div class="name col-md-8 col-8">
 											<h4>Tuyến: {{$list->tentuyen}}</h4>
 										</div>
-										<div class="time col-md-3">
-											<h4>Ngày đặt: {{date('h:i d-m-yy ',strtotime($list->created_at)+7*60*60)}}</h4>
+										<div class="seat col-md-4 col-4" style="text-align: right;">
+											<h4>Số ghế: {{$list->soghe}}</h4>
+											<!--<h4>Ngày đặt: {{date('h:i d-m-yy ',strtotime($list->created_at)+7*60*60)}}</h4>-->
 										</div>
 									</div>
 									<div class="seat">
-										<h4>Số ghế: {{$list->soghe}}</h4>
+										<h4>{{$list->noidi.'->'.$list->noiden}}</h4>
 									</div>
-									<div class="row">
-										<div class="seat col-md-4 col-6">
-											<h4>Giờ đi: {{$list->giodi}}</h4>
-										</div>
-										<div class="seat col-md-4 col-6">
-											<h4>Giờ đến: {{$list->gioden}}</h4>
-										</div>
+									<div class="seat">
+										<h4>Giờ đi: {{$list->giodi}}</h4>
+									</div>
+									<div class="seat">
+										<h4>Giờ đến: {{$list->gioden}}</h4>
 									</div>
 									<div class="status">
 										<h4>Trạng thái: 
@@ -70,7 +66,14 @@
 											@endswitch
 										</h4>
 									</div>
-									<a style="float: right;" href="{{route('ticketById',['id'=>$list->id])}}">Xem chi tiết</a>
+									<div class="row">
+										<div class="col-md-8 col-8 time">
+											<h4>Ngày đặt: {{date('G:i d-m-yy ',strtotime($list->created_at)+7*60*60)}}</h4>
+											</div>
+										<div class="col-md-4 col-4" style="text-align: right;">
+											<a style="float: right;" href="{{route('ticketById',['id'=>$list->id])}}">Xem chi tiết</a>
+										</div>
+									</div>		
 								</td>
 							</tr>
 							@endforeach

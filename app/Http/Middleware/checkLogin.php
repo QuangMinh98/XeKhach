@@ -17,10 +17,13 @@ class checkLogin
     public function handle($request, Closure $next)
     {
         if(Auth::check()){
+            if(Auth::user()->level == 2){
+                return redirect()->route('getLogin');
+            }
             return $next($request); 
         }
         else{
-            return redirect()->route('viewLogin');
+            return redirect()->route('getLogin');
         }
     }
 }

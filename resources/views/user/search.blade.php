@@ -84,7 +84,6 @@
 					<table class="table">
 						<thead>
 							<tr>
-								<th>Hãng xe</th>
 								<th>Nơi đi</th>
 								<th>Nơi đến</th>
 								<th>Giờ đi</th>
@@ -95,7 +94,6 @@
 						<tbody>
 							@foreach($chuyen as $list)
 							<tr>
-								<td>{{$list->tenhang}}</td>
 								<td>{{$list->noidi}}</td>
 								<td>{{$list->noiden}}</td>
 								<td>{{$list->giodi}}</td>
@@ -111,37 +109,34 @@
 			<div class="news">
 				<h3><i class="far fa-newspaper"></i>&nbsp Tin Mới</h3>
 				<div class="row" style="padding: 30px 0px;">
+					@if(count($tintuc)>0)
 					<div class="col-md-5">
 						<div class="first-news">
-							<img src="https://futabus.vn/uploads/useravatar/thumb/bia-Khong-qua-20-khach-555x325.jpg">
-							<h4>XE KHÁCH PHƯƠNG TRANG KHÔNG CHỞ QUÁ 20 KHÁCH PHÒNG COVID-19</h4>
-							<span class="time-up">Ngày đăng:</span>
-							<p>Xe khách Phương Trang không chở quá 20 khách phòng COVID-19.</p>
+							<a href="{{route('viewTin',['tieude'=>$tintuc[0]->tenkhongdau.'-'.$tintuc[0]->id])}}"><img src="{{$tintuc[0]->img}}"></a>
+							<a href="{{route('viewTin',['tieude'=>$tintuc[0]->tenkhongdau.'-'.$tintuc[0]->id])}}">
+								<h4>{{$tintuc[0]->tieude}}</h4>
+							</a>
+							<span class="time-up">Ngày đăng: {{date('d-m-yy G:i',strtotime($tintuc[0]->created_at)+7*60*60)}}</span>
+							<p>{{$tintuc[0]->tomtat}}</p>
 						</div>
 					</div>
 					<div class="col-md-7">
 						<div class="list-news">
 							<ul>
+								@foreach($tintuc as $ds)
+									@if($ds->id != $tintuc[0]->id)
 								<li class="items-news">
-									<h4>Nguyên Chủ tịch nước Trương Tấn Sang đã đến thăm và chúc Tết người dân tại bến xe Miền Tây</h4>
-									<span class="time-up">Ngày đăng:</span>
-									<p>Chiều ngày 20/1 tức ngày 26 Tết, Nguyên Chủ tịch nước Trương Tấn Sang đã đến thăm và chúc Tết người dân tại bến xe Miền Tây.</p>
+									<a href="{{route('viewTin',['tieude'=>$ds->tenkhongdau.'-'.$ds->id])}}"><h4>{{$ds->tieude}}</h4></a>							
+									<span class="time-up">Ngày đăng: {{date('d-m-yy G:i',strtotime($ds->created_at)+7*60*60)}}</span>
+									<p>{{$ds->tomtat}}</p>
 								</li>
 								<hr>
-								<li class="items-news">
-									<h4>XE KHÁCH PHƯƠNG TRANG KHÔNG CHỞ QUÁ 20 KHÁCH PHÒNG COVID-19</h4>
-									<span class="time-up">Ngày đăng:</span>
-									<p>Xe khách Phương Trang không chở quá 20 khách phòng COVID-19.</p>
-								</li>
-								<hr>
-								<li class="items-news">
-									<h4>XE KHÁCH PHƯƠNG TRANG KHÔNG CHỞ QUÁ 20 KHÁCH PHÒNG COVID-19</h4>
-									<span class="time-up">Ngày đăng:</span>
-									<p>Xe khách Phương Trang không chở quá 20 khách phòng COVID-19.</p>
-								</li>
+									@endif
+								@endforeach
 							</ul>
 						</div>
 					</div>
+					@endif
 				</div>
 			</div>
 		</div>

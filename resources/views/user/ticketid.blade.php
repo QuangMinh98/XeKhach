@@ -66,8 +66,10 @@
 									<tr>
 										<td><p><strong>Thanh Toán:</strong>
 												<span>
-													@if($ve->thanhtoan == 0) Chưa Thanh Toán
-													@else Đã Thanh Toán
+													@if($ve->thanhtoan == 0) 
+														Chưa Thanh Toán
+													@else 
+														Đã Thanh Toán
 													@endif
 												</span>
 											</p>
@@ -84,9 +86,6 @@
 								<tbody>
 									<tr>
 										<td><p><strong>Tuyến xe:</strong><span>&nbsp{{$ve->tentuyen}}</span></p></td>
-									</tr>
-									<tr>
-										<td><p><strong>Hãng Xe:</strong><span>&nbsp{{$ve->tenhang}}</span></p></td>
 									</tr>
 									<tr>
 										<td><p><strong>Nơi Đi:</strong><span>&nbsp{{$ve->noidi}}</span></p></td>

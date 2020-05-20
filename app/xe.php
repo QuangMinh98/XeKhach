@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\ghe;
 use App\lotrinh;
 use App\chuyen;
+use App\ve;
 
 class xe extends Model
 {
@@ -44,6 +45,7 @@ class xe extends Model
         $chuyen = xe::find($id)->hasManyThrough('App\chuyen','App\lotrinh','idXe','idLoTrinh');
         foreach($chuyen as $list){
             chuyen::delChuyen($list->id);
+            ve::where('idChuyen',$list->id)->delete();
         }
         ghe::where('idXe',$id)->delete();
         lotrinh::where('idXe',$id)->delete();

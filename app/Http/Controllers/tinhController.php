@@ -33,7 +33,7 @@ class tinhController extends Controller
         else{
             $tinh = tinhdi::orderBy('tentinh','asc')->get();
         }
-    	return view('teamplate.tinh.danhsach',['tinh'=>$tinh,'sort'=>$request->sort]);
+    	return view('admin1.tinh.danhsach',['tinh'=>$tinh,'sort'=>$request->sort]);
     }
 
     public function addTinh(Request $request){

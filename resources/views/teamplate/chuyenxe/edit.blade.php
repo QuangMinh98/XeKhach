@@ -86,7 +86,7 @@
 							<label for="idlotrinh">Lộ Trình:</label>
 							<select id="lotrinh" name="idlotrinh" class="form-control">
 								@foreach($lotrinh as $lt)
-								@if($lt->id == $chuyen->id)
+								@if($lt->id == $chuyen->idLoTrinh)
 								<option value="{{$lt->id}}" selected="">
 									{{$lt->noidi}}-{{$lt->tentinhdi}} &nbsp -> &nbsp {{$lt->noiden}}-{{$lt->tentinhden}}
 								</option>
