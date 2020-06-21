@@ -1,5 +1,8 @@
 @extends('user.master.header')
 
+@section('title')
+Thông tin vé xe #{{$ve->id}}
+@endsection
 
 @section('noidung')
 <section>

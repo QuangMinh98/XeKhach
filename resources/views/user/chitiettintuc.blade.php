@@ -1,5 +1,9 @@
 @extends('user.master.header')
 
+@section('title')
+{{$tintuc->tieude}}
+@endsection
+
 @section('noidung')
 	<section>
 		<div class="container">

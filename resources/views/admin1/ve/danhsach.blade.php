@@ -1,5 +1,9 @@
 @extends('admin1.master.header')
 
+@section('title')
+Quản lý vé xe
+@endsection
+
 @section('noidung')
 
         <!-- End of Topbar -->

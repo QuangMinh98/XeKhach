@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>Đặt vé xe khách</title>
+	<title>@yield('title')</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
@@ -23,6 +23,46 @@
 		</div>
 	</header>
 	@yield('noidung')
+  <section id="body-news" class="container">
+    <div class="row">
+      <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 col-ms-12">
+        <div class="item-block">
+          <div class="items-news text-center wow fadeInUp  animated" data-wow-offset="15" data-wow-duration="1.2s" style="visibility: visible; animation-duration: 1.2s; animation-name: B;">
+            <img src="{{asset('img/customer.png')}}">
+            <h5>
+              <a href="">Hơn 20 triệu lượt khách</a>
+
+            </h5>
+            <p>Quang Minh phục vụ hơn 20 triệu lượt khách/ bình quân 1 năm trên toàn quốc</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 col-ms-12">
+        <div class="item-block">
+          <div class="items-news text-center wow fadeInUp  animated" data-wow-offset="15" data-wow-duration="1.2s" style="visibility: visible; animation-duration: 1.2s; animation-name: B;">
+            <img src="{{asset('img/home.png')}}">
+            <h5>
+              <a href="">Hơn 200 Phòng vé, Trạm trung chuyển</a>
+
+            </h5>
+            <p>Quang Minh có hơn 100 Phòng vé, Trạm trung chuyển, Bến xe... trên toàn hệ thống</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 col-ms-12">
+        <div class="item-block">
+          <div class="items-news text-center wow fadeInUp  animated" data-wow-offset="15" data-wow-duration="1.2s" style="visibility: visible; animation-duration: 1.2s; animation-name: B;">
+            <img src="{{asset('img/tech.png')}}">
+            <h5>
+              <a href="">Hơn 1,000 chuyến mỗi ngày</a>
+
+            </h5>
+            <p>Quang Minh phục vụ hơn 1000 chuyến xe đường dài và liên tỉnh mỗi ngày.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 	<div class="footer">
 		<div class="container" style="background: #ef5222;">
 			<div class="row">

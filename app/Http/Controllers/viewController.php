@@ -26,7 +26,7 @@ class viewController extends Controller
 
     public function viewHome(){
     	$tinhdi = tinhdi::all();
-    	$tuyen = tuyen::all();
+    	$tuyen = tuyen::where('tinhtrang','Hoạt Động')->get();
         $tintuc = tintuc::orderBy('created_at','desc')->take(4)->get();
     	return view('user.trangchu',['diadiem'=>$tinhdi,'tuyen'=>$tuyen,'tintuc'=>$tintuc]);
     }
@@ -66,6 +66,7 @@ class viewController extends Controller
                     ->join('tuyen','xe.idTuyen','tuyen.id')
                     ->where('tuyen.id',$request->id)
                     ->whereDate('chuyen.giodi','=',$request->ngaydi)
+                    ->where('tuyen.tinhtrang','Hoạt Động')
                     ->where('chuyen.tinhtrang',0)
                     ->orderBy('chuyen.giodi','desc')
                     ->select('chuyen.id','tuyen.tentuyen','xe.tenxe','xe.biensoxe','xe.soghe','tinhdi.tentinh as tentinhdi','tinhden.tentinh as tentinhden','lotrinh.noidi','lotrinh.noiden','chuyen.giodi','chuyen.gioden','chuyen.giave','chuyen.tinhtrang')
@@ -203,7 +204,7 @@ class viewController extends Controller
             ->join('users','users.id','ve.idUser')
             ->where('ve.idUser',$id)
             ->whereRaw('(ve.tinhtrang = 0 or ve.tinhtrang = 1)')
-            ->orderBy('users.created_at','desc')
+            ->orderBy('ve.created_at','desc')
             ->select('ve.id','tinhdi.tentinh as tentinhdi','tinhden.tentinh as tentinhden','chuyen.giodi','chuyen.gioden','lotrinh.noidi','lotrinh.noiden','tuyen.tentuyen','ve.soghe','ve.created_at','ve.tinhtrang')
             ->paginate(5);
         return view('user.myticket',['ve'=>$ve,'nav'=>'0']);

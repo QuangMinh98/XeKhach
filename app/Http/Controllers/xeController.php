@@ -51,7 +51,7 @@ class xeController extends Controller
                 ->select('xe.id as idXe','tenhang','tenxe','tentuyen','xe.tinhtrang','sotang','soghe','biensoxe')
                 ->get();
         }
-    	return view('admin1.xe.danhsach',['xe'=>$xe,'sort'=>$request->sort,'hang'=>$hang]);
+    	return view('admin2.xe.danhsach',['xe'=>$xe,'sort'=>$request->sort,'hang'=>$hang]);
     }
 
     public function showAdd(){
@@ -59,7 +59,7 @@ class xeController extends Controller
     	$tuyen = tuyen::all();
     	$loaixe = loaixe::all();
         $tinh = tinhdi::all();
-    	return view('admin1.xe.add',[/*'hangxe'=>$hang,*/'tuyen'=>$tuyen,'loaixe'=>$loaixe,'tinh'=>$tinh]);
+    	return view('admin2.xe.add',[/*'hangxe'=>$hang,*/'tuyen'=>$tuyen,'loaixe'=>$loaixe,'tinh'=>$tinh]);
     }
 
     public function addXe(Request $request){
@@ -128,7 +128,7 @@ class xeController extends Controller
                 ->select('lotrinh.id','tinhdi.tentinh as tentinhdi','noidi','tinhden.tentinh as tentinhden','noiden')
                 ->orderBy('id','asc')
                 ->first();
-        return view('admin1.xe.chitiet',['xe'=>$xe,'tuyen'=>$tuyen,'hang'=>$hang,'loaixe'=>$loaixe,'lotrinh'=>$lotrinh,'ghe'=>$ghe]);
+        return view('admin2.xe.chitiet',['xe'=>$xe,'tuyen'=>$tuyen,'hang'=>$hang,'loaixe'=>$loaixe,'lotrinh'=>$lotrinh,'ghe'=>$ghe]);
     }
 
     public function editSeat(Request $request){
@@ -151,7 +151,7 @@ class xeController extends Controller
         $loaixe = loaixe::all();
         $tuyen = tuyen::all();
         $tinhdi = tinhdi::all();
-        return view('admin1.xe.edit',['xe'=>$xe,/*'hangxe'=>$hang,*/'loaixe'=>$loaixe,'tuyen'=>$tuyen,'tinh'=>$tinhdi,'lotrinhdi'=>$lotrinhdi,'lotrinhve'=>$lotrinhve]);
+        return view('admin2.xe.edit',['xe'=>$xe,/*'hangxe'=>$hang,*/'loaixe'=>$loaixe,'tuyen'=>$tuyen,'tinh'=>$tinhdi,'lotrinhdi'=>$lotrinhdi,'lotrinhve'=>$lotrinhve]);
     }
 
     public function editXe(Request $request){

@@ -45,7 +45,7 @@ class veController extends Controller
         else{
             $ve = ve::all();
         }
-        return view('admin1.ve.danhsach',['ve'=>$ve,'sort'=>$request->sort]);
+        return view('admin2.ve.danhsach',['ve'=>$ve,'sort'=>$request->sort]);
     }
 
     public function thanhtoan(Request $request){
@@ -68,6 +68,12 @@ class veController extends Controller
         $tinhdi = tinhdi::find($lotrinh->idTinhDi);
         $tinhden = tinhden::find($lotrinh->idTinhDen);
         $tuyen = xe::find($lotrinh->idXe)->tuyen;
-        return view('admin1.ve.chitiet',['ve'=>$ve,'chuyen'=>$chuyen,'lotrinh'=>$lotrinh,'tinhdi'=>$tinhdi,'tinhden'=>$tinhden,'tuyen'=>$tuyen,'user'=>$user]);
+        $loaixe = xe::find($lotrinh->idXe)->loaixe;
+        return view('admin2.ve.chitiet',['ve'=>$ve,'chuyen'=>$chuyen,'lotrinh'=>$lotrinh,'tinhdi'=>$tinhdi,'tinhden'=>$tinhden,'tuyen'=>$tuyen,'user'=>$user,'loaixe'=>$loaixe]);
+    }
+
+    public function cancel(Request $request){
+        ve::find($request->id)->update(['tinhtrang'=>3]);
+        return redirect()->back();
     }
 }

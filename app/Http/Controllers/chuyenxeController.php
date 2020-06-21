@@ -110,14 +110,14 @@ class chuyenxeController extends Controller
     				->select('chuyen.id','tuyen.tentuyen','hang.tenhang','xe.tenxe','xe.biensoxe','xe.soghe','tinhdi.tentinh as tentinhdi','tinhden.tentinh as tentinhden','lotrinh.noidi','lotrinh.noiden','chuyen.giodi','chuyen.gioden','chuyen.giave','chuyen.tinhtrang')
     				->get();
     		}
-    	return view('admin1.chuyenxe.danhsach',['chuyen'=>$chuyen,'sort'=>$request->sort,'tinh'=>$tinh]);
+    	return view('admin2.chuyenxe.danhsach',['chuyen'=>$chuyen,'sort'=>$request->sort,'tinh'=>$tinh]);
     }
 
     public function showAdd(){
     	$tuyen = tuyen::all();
     	$loaixe = loaixe::all();
     	$xe = xe::all();
-    	return view('admin1.chuyenxe.add',['tuyen'=>$tuyen,'loaixe'=>$loaixe,'xe'=>$xe]);
+    	return view('admin2.chuyenxe.add',['tuyen'=>$tuyen,'loaixe'=>$loaixe,'xe'=>$xe]);
     }
 
     public function ajaxXe(Request $request){
@@ -160,14 +160,14 @@ class chuyenxeController extends Controller
                     ->join('tuyen','xe.idTuyen','tuyen.id')
                     ->join('loaixe','xe.idLoaiXe','loaixe.id')
                     ->where('chuyen.id',$id)
-                    ->select('chuyen.id','chuyen.idLoTrinh','xe.id as idXe','tuyen.id as idTuyen','loaixe.id as idLoaiXe','chuyen.giodi','chuyen.gioden','chuyen.giave')
+                    ->select('chuyen.id','chuyen.idLoTrinh','xe.id as idXe','tuyen.id as idTuyen','loaixe.id as idLoaiXe','chuyen.giodi','chuyen.gioden','chuyen.giave','chuyen.tinhtrang')
                     ->first();
         $lotrinh = lotrinh::join('tinhdi','lotrinh.idTinhDi','tinhdi.id')
                 ->join('tinhden','lotrinh.idTinhDen','tinhden.id')
                 ->where('idXe',$chuyen->idXe)
                 ->select('lotrinh.id','tinhdi.tentinh as tentinhdi','tinhden.tentinh as tentinhden','lotrinh.noidi','lotrinh.noiden')
                 ->get();
-        return view('admin1.chuyenxe.edit',['tuyen'=>$tuyen,'loaixe'=>$loaixe,'xe'=>$xe,'chuyen'=>$chuyen,'lotrinh'=>$lotrinh]);
+        return view('admin2.chuyenxe.edit',['tuyen'=>$tuyen,'loaixe'=>$loaixe,'xe'=>$xe,'chuyen'=>$chuyen,'lotrinh'=>$lotrinh]);
     }
 
     public function editChuyen(Request $request){
@@ -203,7 +203,7 @@ class chuyenxeController extends Controller
         foreach($ve as $ticket){
             $arrayVe[] = $ticket->soghe;
         }
-        return view('admin1.chuyenxe.chitiet',['chuyen'=>$chuyen,'sove'=>$sove,'xe'=>$xe,'ghe'=>$ghe,'ve'=>$arrayVe]);
+        return view('admin2.chuyenxe.chitiet',['chuyen'=>$chuyen,'sove'=>$sove,'xe'=>$xe,'ghe'=>$ghe,'ve'=>$arrayVe]);
     }
 
     public function changeStatus(Request $request){

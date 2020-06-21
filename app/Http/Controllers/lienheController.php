@@ -14,7 +14,7 @@ class lienheController extends Controller
     	else{
     		$lienhe = lienhe::all();
     	}
-    	return view('admin1.lienhe.danhsach',['lienhe'=>$lienhe]);
+    	return view('admin2.lienhe.danhsach',['lienhe'=>$lienhe]);
     }
 
     public function addLienHe(Request $request){

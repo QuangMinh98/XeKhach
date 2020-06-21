@@ -37,7 +37,7 @@ class tuyenController extends Controller
         else{
             $tuyen = tuyen::all();
         }
-    	return view('admin1.tuyen.danhsach',['tuyen'=>$tuyen,'sort'=>$request->sort]);
+    	return view('admin2.tuyen.danhsach',['tuyen'=>$tuyen,'sort'=>$request->sort]);
     }
 
     public function addTuyen(Request $request){

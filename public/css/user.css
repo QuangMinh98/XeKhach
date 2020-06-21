@@ -250,3 +250,50 @@ li{
 .news a{
 	text-decoration: none;
 }
+
+
+.contact p {
+    color: #ef5222;
+    text-align: justify;
+    line-height: 30px;
+}
+.hotline-part h3 {
+    color: #00613d;
+    margin: 6px 0 24px;
+    font-weight: bold;
+    padding-right: 25px;
+    font-size: 14px;
+    line-height: 22px;
+    text-transform: uppercase;
+}
+
+.hotline-part span {
+    color: #ef5222;
+    font-size: 32px;
+    font-weight: bold;
+}
+
+.hotline-part span a{
+    color: #ef5222;
+}
+
+.item-block {
+    background: #fff;
+    margin: 20px 0;
+    padding: 10px;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.item-block a{
+	color: #ef5222;
+	font-weight: normal;
+	text-decoration: none;
+	font-size: 14px;
+}
+
+.item-block p{
+	font-size: 14px;
+}

@@ -1,5 +1,8 @@
 @extends('user.master.header')
 
+@section('title')
+Đặt vé thành công
+@endsection
 
 @section('noidung')
 <section>
@@ -13,7 +16,7 @@
 			</div>
 			<div class="success-body">
 				<p class="text-center">Cảm ơn đã đặt vé.</p>
-				<p class="text-center">Vé sẽ được giao tận nhà cho quý khách.</p>
+				<p class="text-center">Quý khách vui lòng đến thanh toán và nhận vé tại nhà xe.</p>
 			</div>
 			<div class="success-button">
 				<a href="{{route('home')}}"><button class="button-submit"><i class="fas fa-check-circle"></i>&nbsp Tiếp Tục</button></a>

@@ -1,5 +1,8 @@
 @extends('user.master.header')
 
+@section('title')
+Thông tin tài khoản
+@endsection
 
 @section('noidung')
 <section>

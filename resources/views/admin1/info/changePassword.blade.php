@@ -1,5 +1,9 @@
 @extends('admin1.master.header')
 
+@section('title')
+Đổi mật khẩu
+@endsection
+
 @section('noidung')
 
         <!-- End of Topbar -->

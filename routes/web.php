@@ -79,6 +79,7 @@ Route::group(['prefix'=>'admin','middleware'=>'checkLogin'],function(){
 		Route::post('thanhtoan','veController@thanhtoan')->name('thanhtoan');
 		Route::post('tiepnhan','veController@tiepnhan')->name('tiepnhan');
 		Route::get('chitiet/{id}','veController@showDetail')->name('chitietve');
+		Route::post('cancel','veController@cancel')->name('admin_cancel_ticket');
 	});
 	Route::group(['prefix'=>'tintuc','middleware'=>'checkSPAdmin'],function(){
 		Route::get('danhsach','tintucController@getDanhSach')->name('tintuc');
@@ -130,8 +131,8 @@ route::get('huong-dan','viewController@getHuongDan')->name('huongdan');
 route::get('tin-tuc','viewController@getTinTuc')->name('tintuc1');
 route::get('tin-tuc/{tieude}','viewController@viewTin')->name('viewTin');
 route::get('thong-tin/{tieude}','viewController@viewThongTin')->name('viewThongTin');
-route::post('checkout','viewController@checkout')->name('checkout')->middleware('checkLogin');
-route::post('success','viewController@datve')->name('success')->middleware('checkLogin');
+route::post('checkout','viewController@checkout')->name('checkout')->middleware('checkUser');
+route::post('success','viewController@datve')->name('success')->middleware('checkUser');
 route::group(['prefix'=>'ve-cua-toi','middleware'=>'checkUser'],function(){
 	route::get('ve-da-dat','viewController@getTicket')->name('ticket');
 	route::get('ve-thanh-cong','viewController@getSuccess')->name('successticket');

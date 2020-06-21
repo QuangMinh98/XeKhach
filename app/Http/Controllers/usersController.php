@@ -41,7 +41,7 @@ class usersController extends Controller
     		->orderBy('level','asc')
     		->get();
     	}
-    	return view('admin1.users.quantri',['admin'=>$admin,'sort'=>$request->sort]);
+    	return view('admin2.users.quantri',['admin'=>$admin,'sort'=>$request->sort]);
     }
 
     public function addAdmin(Request $request){
@@ -121,7 +121,7 @@ class usersController extends Controller
             ->orderBy('name','asc')
             ->get();
         }
-        return view('admin1.users.khachhang',['users'=>$users,'sort'=>$request->sort]);
+        return view('admin2.users.khachhang',['users'=>$users,'sort'=>$request->sort]);
     }
 
     public function addUser(Request $request){
@@ -207,7 +207,7 @@ class usersController extends Controller
     }
 
     public function getInfo(){
-        return view('admin1.info.info');
+        return view('admin2.info.info');
     }
 
     public function changeInfo(Request $request){
@@ -235,7 +235,7 @@ class usersController extends Controller
     }
 
     public function getChangePass(){
-        return view('admin1.info.changePassword');
+        return view('admin2.info.changePassword');
     }
 
     public function changePassword(Request $request){

@@ -1,5 +1,9 @@
 @extends('user.master.header')
 
+@section('title')
+Thông tin hướng dẫn
+@endsection
+
 @section('noidung')
 	<section>
 		<div class="container">

@@ -14,11 +14,11 @@ class thongtinController extends Controller
     	else{
     		$thongtin = thongtin::all();
     	}
-    	return view('admin1.thongtin.danhsach',['thongtin'=>$thongtin]);
+    	return view('admin2.thongtin.danhsach',['thongtin'=>$thongtin]);
     }
 
     public function showAdd(Request $request){
-    	return view('admin1.thongtin.add');
+    	return view('admin2.thongtin.add');
     }
 
     public function addThongTin(Request $request){
@@ -42,7 +42,7 @@ class thongtinController extends Controller
 
     public function showEdit($id){
     	$thongtin  = thongtin::findOrFail($id);
-    	return view('admin1.thongtin.edit',['thongtin'=>$thongtin]);
+    	return view('admin2.thongtin.edit',['thongtin'=>$thongtin]);
     }
 
     public function editThongTin(Request $request){

@@ -1,5 +1,8 @@
 @extends('user.master.header')
 
+@section('title')
+Thông tin chuyến xe
+@endsection
 
 @section('noidung')
 	<section>
@@ -12,9 +15,6 @@
 							<tbody>
 								<tr>
 									<td><p><strong>Tuyến xe:</strong><span>&nbsp{{$chuyen->tentuyen}}</span></p></td>
-								</tr>
-								<tr>
-									<td><p><strong>Hãng Xe:</strong><span>&nbsp{{$chuyen->tenhang}}</span></p></td>
 								</tr>
 								<tr>
 									<td><p><strong>Nơi Đi:</strong><span>&nbsp{{$chuyen->noidi}}</span></p></td>
@@ -59,7 +59,7 @@
 							@endfor
 						</div>
 						<p class="text-seat">Số Ghế : <span id="txt-seat">Chưa Chọn Ghế</span></p>
-						@if(Auth::check())
+						@if(Auth::check() && $chuyen->tinhtrang == 0)
 						<div class="form-datve">
 							<form id="form-datve" action="{{route('checkout')}}" method="post">
 								@csrf

@@ -1,10 +1,49 @@
 @extends('user.master.header')
 
+@section('title')
+Tìm kiếm tuyến "{{$tuyen->tentuyen}}"
+@endsection
+
 @section('noidung')
 	<section>
 		<div class="container">
 			<div class="row" style="margin: 0px;">
-				<div class="form-search">
+				
+				<div class="slide-main col-md-12">
+					<div id="demo" class="carousel slide" data-ride="carousel">
+
+						<!-- Indicators -->
+						<ul class="carousel-indicators">
+							<li data-target="#demo" data-slide-to="0" class="active"></li>
+							<li data-target="#demo" data-slide-to="1"></li>
+							<li data-target="#demo" data-slide-to="2"></li>
+						</ul>
+
+						<!-- The slideshow -->
+						<div class="carousel-inner" style="height: 420px;">
+							<div class="carousel-item active">
+								<img src="https://futabus.vn/uploads/useravatar/Khai%20truong%20VP%20B%E1%BB%93ng%20S%C6%A1n-Web-01-01.png" alt="Los Angeles">
+							</div>
+							<div class="carousel-item">
+								<img src="https://futabus.vn/uploads/useravatar/Th%C3%B4ng%20b%C3%A1o%20t%C4%83ng%20C%C3%A0%20Mau,%20N%C4%83m%20C%C4%83n%20-%20S%C3%A0i%20G%C3%B2n-%20Website-01.png" alt="Chicago">
+							</div>
+							<div class="carousel-item">
+								<img src="https://futabus.vn/uploads/useravatar/thong-bao-tang-cuong-dot-3%20(1).png" alt="New York">
+							</div>
+						</div>
+
+						<!-- Left and right controls -->
+						<a class="carousel-control-prev" href="#demo" data-slide="prev">
+							<span class="carousel-control-prev-icon"></span>
+						</a>
+						<a class="carousel-control-next" href="#demo" data-slide="next">
+							<span class="carousel-control-next-icon"></span>
+						</a>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="form-search col-md-4">
 					<div class="col-md-10">
 						<div class="header-booking">
 							<h1>Đặt vé trực tuyến</h1>
@@ -41,37 +80,18 @@
 							</form>
 						</div>
 					</div>
+				</div>		
+				<div class="col-md-1">
+					
 				</div>
-				<div class="slide-main">
-					<div id="demo" class="carousel slide" data-ride="carousel">
-
-						<!-- Indicators -->
-						<ul class="carousel-indicators">
-							<li data-target="#demo" data-slide-to="0" class="active"></li>
-							<li data-target="#demo" data-slide-to="1"></li>
-							<li data-target="#demo" data-slide-to="2"></li>
-						</ul>
-
-						<!-- The slideshow -->
-						<div class="carousel-inner">
-							<div class="carousel-item active">
-								<img src="https://futabus.vn/uploads/useravatar/TCBC%20Tri%20%C3%A2n%20Ba%CC%81c%20Ta%CC%80i%202020%20-web-01.png" alt="Los Angeles">
-							</div>
-							<div class="carousel-item">
-								<img src="https://futabus.vn/uploads/useravatar/TCBC%20Tri%20%C3%A2n%20Ba%CC%81c%20Ta%CC%80i%202020%20-web-01.png" alt="Chicago">
-							</div>
-							<div class="carousel-item">
-								<img src="https://futabus.vn/uploads/useravatar/TCBC%20Tri%20%C3%A2n%20Ba%CC%81c%20Ta%CC%80i%202020%20-web-01.png" alt="New York">
-							</div>
+				<div class="col-md-7" style="padding: 50px 20px;">
+					<div class="contact">
+						<div class="describe-part">
+							<p>*** Quý hành khách có thể đặt vé qua tổng đài phục vụ <strong>24/24</strong> của chúng tôi
+								(kể cả thứ 7 và Chủ Nhật): <strong><a href="tel:1900 6067">1900 6067</a></strong> hoặc mua vé tiện lợi ngay trên chiếc
+								điện thoại thông minh của quý vị thông qua <strong>app FUTA Bus</strong></p>
 						</div>
-
-						<!-- Left and right controls -->
-						<a class="carousel-control-prev" href="#demo" data-slide="prev">
-							<span class="carousel-control-prev-icon"></span>
-						</a>
-						<a class="carousel-control-next" href="#demo" data-slide="next">
-							<span class="carousel-control-next-icon"></span>
-						</a>
+						<img src="{{asset('img/contact.png')}}" width="100%">
 					</div>
 				</div>
 			</div>

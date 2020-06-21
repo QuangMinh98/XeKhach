@@ -26,11 +26,11 @@ class tintucController extends Controller
     	}else{
     		$tintuc = tintuc::orderBy('created_at','asc')->get();
     	}
-    	return view('admin1.tintuc.danhsach',['tintuc'=>$tintuc,'sort'=>$request->sort]);
+    	return view('admin2.tintuc.danhsach',['tintuc'=>$tintuc,'sort'=>$request->sort]);
     }
 
     public function showAdd(){
-    	return view('admin1.tintuc.add');
+    	return view('admin2.tintuc.add');
     }
 
     public function addTin(Request $request){
@@ -64,7 +64,7 @@ class tintucController extends Controller
 
     public function showEdit($id){
     	$tintuc = tintuc::findOrFail($id);
-    	return view('admin1.tintuc.edit',['tintuc'=>$tintuc]);
+    	return view('admin2.tintuc.edit',['tintuc'=>$tintuc]);
     }
 
     public function editTin(Request $request){

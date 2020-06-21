@@ -1,5 +1,9 @@
 @extends('admin1.master.header')
 
+@section('title')
+Danh sách loại xe
+@endsection
+
 @section('noidung')
 
         <!-- End of Topbar -->
@@ -36,7 +40,7 @@
                   <thead>
                     <tr>
                       <th>id</th>
-                      <th>Tên Tỉnh Thành</th>
+                      <th>Tên Loại Xe</th>
                       <th>Thao Tác</th>
                     </tr>
                   </thead>

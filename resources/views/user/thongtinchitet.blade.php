@@ -1,5 +1,9 @@
 @extends('user.master.header')
 
+@section('title')
+{{$thongtin->tieude}}
+@endsection
+
 @section('noidung')
 	<section>
 		<div class="container">

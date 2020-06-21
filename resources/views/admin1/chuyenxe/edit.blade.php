@@ -1,5 +1,9 @@
 @extends('admin1.master.header')
 
+@section('title')
+Chỉnh sửa thông tin chuyến xe
+@endsection
+
 @section('noidung')
 
         <!-- End of Topbar -->

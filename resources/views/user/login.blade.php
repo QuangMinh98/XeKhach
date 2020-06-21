@@ -1,5 +1,9 @@
 @extends('user.master.header')
 
+@section('title')
+Đăng nhập
+@endsection
+
 @section('noidung')
 	<section>
 		<div class="container" style="padding: 60px 0px;">

@@ -1,5 +1,9 @@
 @extends('admin1.master.header')
 
+@section('title')
+Chỉnh sửa nội dung {{$thongtin->tieude}}
+@endsection
+
 @section('noidung')
 
         <!-- End of Topbar -->
