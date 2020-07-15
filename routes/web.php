@@ -104,6 +104,7 @@ Route::group(['prefix'=>'admin','middleware'=>'checkLogin'],function(){
 		Route::post('edit','lienheController@editLienHe')->name('editLienHe');
 		Route::post('delete','lienheController@deleteLienHe')->name('delLienHe');
 	});
+	Route::get('thong-ke','veController@getThongKe')->name('thongke');
 	Route::get('logout','usersController@logOut')->name('logOutAdmin');
 	Route::get('info','usersController@getInfo')->name('getInfo');
 	Route::post('changeInfo','usersController@changeInfo')->name('changeInfoAdmin');

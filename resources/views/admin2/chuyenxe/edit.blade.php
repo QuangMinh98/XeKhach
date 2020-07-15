@@ -176,14 +176,14 @@
         }
       })
     })
-    $('#xe').click(function(){
+    $('#xe').change(function(){
       idXe = $('#xe').val();
       $.ajax({
         url:'{{route('ajaxlotrinh')}}',
         type: 'get',
         data:{idXe:idXe},
         success:function(d){
-          $('#lotrinh').html(d);  
+          $('#lotrinh').html(d);
         },
         error:function(){
           alert('Không thể hoàn thành thao tác');

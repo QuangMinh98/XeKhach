@@ -1,7 +1,7 @@
 @extends('admin2.master.header')
 
 @section('content-title')
-	Chi tiết xe
+	Chi tiết chuyến xe
 @endsection
 
 @section('breadcrumb')

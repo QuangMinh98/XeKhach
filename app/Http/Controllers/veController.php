@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use Carbon\Carbon;
 use App\ve;
 use App\chuyen;
 use App\lotrinh;
@@ -75,5 +76,20 @@ class veController extends Controller
     public function cancel(Request $request){
         ve::find($request->id)->update(['tinhtrang'=>3]);
         return redirect()->back();
+    }
+
+    public function getThongKe(Request $request){
+        if(isset($request->date)){
+            $vengay = Ve::whereDate('created_at',$request->date)->count();
+            $vethang = Ve::whereMonth('created_at',date('m',strtotime($request->date)))->count();
+            $chuyenngay = chuyen::whereDate('giodi',$request->date)->count();
+            $chuyenthang = chuyen::whereMonth('giodi',date('m',strtotime($request->date)))->count();
+        }else{
+            $vengay = Ve::whereDate('created_at', '=', Carbon::today()->toDateString())->count();
+            $vethang = Ve::whereMonth('created_at',date('m',strtotime(Carbon::today()->toDateString())) )->count();
+            $chuyenngay = chuyen::whereDate('giodi', '=', Carbon::today()->toDateString())->count();
+            $chuyenthang = chuyen::whereMonth('giodi',strtotime(Carbon::today()->toDateString()))->count();
+        }
+        return view('admin2.thongke.thongke',['vengay'=>$vengay,'vethang'=>$vethang,'chuyenngay'=>$chuyenngay,'chuyenthang'=>$chuyenthang]);
     }
 }

@@ -1,13 +1,13 @@
 @extends('admin2.master.header')
 
 @section('content-title')
-	Danh sách quản trị viên
+	Danh sách khách hàng
 @endsection
 
 @section('breadcrumb')
 	<li class="breadcrumb-item"><a href="#">Home</a></li>
 	<li class="breadcrumb-item">Users</li>
-	<li class="breadcrumb-item active">Quản trị</li>
+	<li class="breadcrumb-item active">Khách hàng</li>
 @endsection
 
 @section('noidung')

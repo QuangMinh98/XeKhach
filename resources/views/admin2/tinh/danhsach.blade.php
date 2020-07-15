@@ -1,7 +1,7 @@
 @extends('admin2.master.header')
 
 @section('content-title')
-	Danh sách tuyến xe
+	Danh sách các tỉnh thành
 @endsection
 
 @section('breadcrumb')

@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-sm navbar-dark" style="background: #ef5222;">
   <!-- Brand -->
   <!-- <a class="navbar-brand" href="{{route('home')}}"><img class="logo" src="https://futabus.vn/Content/img/logo-futa-edit.png"></a> -->
-  <a class="navbar-brand" href="{{route('home')}}"><img class="logo" src="{{asset('img/logo_transparent1.png')}}"></a>
+  <a class="navbar-brand logo" href="{{route('home')}}"><i class="fas fa-shuttle-van"></i> Quang Minh</a>
   <!-- Toggler/collapsibe Button -->
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
     <span class="navbar-toggler-icon"></span>
