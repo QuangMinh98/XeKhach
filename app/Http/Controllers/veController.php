@@ -84,12 +84,22 @@ class veController extends Controller
             $vethang = Ve::whereMonth('created_at',date('m',strtotime($request->date)))->count();
             $chuyenngay = chuyen::whereDate('giodi',$request->date)->count();
             $chuyenthang = chuyen::whereMonth('giodi',date('m',strtotime($request->date)))->count();
+            $thongkengay = ve::join('chuyen','ve.idChuyen','chuyen.id')
+            ->join('lotrinh','chuyen.idLoTrinh','lotrinh.id')
+            ->whereDate('ve.created_at',$request->date)->selectRaw('sum(chuyen.giave) as sum')
+            ->get();
+            $date = $request->date;
         }else{
             $vengay = Ve::whereDate('created_at', '=', Carbon::today()->toDateString())->count();
             $vethang = Ve::whereMonth('created_at',date('m',strtotime(Carbon::today()->toDateString())) )->count();
             $chuyenngay = chuyen::whereDate('giodi', '=', Carbon::today()->toDateString())->count();
             $chuyenthang = chuyen::whereMonth('giodi',strtotime(Carbon::today()->toDateString()))->count();
+            $thongkengay = ve::join('chuyen','ve.idChuyen','chuyen.id')
+            ->join('lotrinh','chuyen.idLoTrinh','lotrinh.id')
+            ->whereDate('ve.created_at',Carbon::today()->toDateString())->selectRaw('sum(chuyen.giave) as sum')
+            ->get();
+            $date = Carbon::today()->toDateString();
         }
-        return view('admin2.thongke.thongke',['vengay'=>$vengay,'vethang'=>$vethang,'chuyenngay'=>$chuyenngay,'chuyenthang'=>$chuyenthang]);
+        return view('admin2.thongke.thongke',['vengay'=>$vengay,'vethang'=>$vethang,'chuyenngay'=>$chuyenngay,'chuyenthang'=>$chuyenthang,'date'=>$date,'thongkengay'=>$thongkengay]);
     }
 }

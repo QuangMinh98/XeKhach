@@ -10,6 +10,7 @@ use App\ve;
 use App\thongtin;
 use App\User;
 use Validator;
+use Mail;
 
 class apiController extends Controller
 {
@@ -214,6 +215,16 @@ class apiController extends Controller
 
     public function booking(Request $request){
         $soghe = ve::where('idChuyen',$request->id)->where('soghe',$request->soghe)->count();
+        $chuyen = chuyen::join('lotrinh','chuyen.idLoTrinh','lotrinh.id')
+        ->join('tinhdi','lotrinh.idTinhDi','tinhdi.id')
+        ->join('tinhden','lotrinh.idTinhDen','tinhden.id')
+        ->join('xe','lotrinh.idXe','xe.id')
+        ->join('tuyen','xe.idTuyen','tuyen.id')
+        ->join('loaixe','xe.idLoaiXe','loaixe.id')
+        ->where('chuyen.id',$request->id)
+        ->select('chuyen.id','chuyen.idLoTrinh','xe.id as idXe','lotrinh.noidi','lotrinh.noiden','tinhdi.tentinh as tentinhdi','tinhden.tentinh as tentinhden','tuyen.tentuyen','loaixe.tenloaixe','chuyen.giodi','chuyen.gioden','chuyen.giave','chuyen.tinhtrang')
+        ->firstOrFail();
+        $user = User::find($request->idUser);
         if($soghe == 1){
             return "fail";
         }
@@ -223,7 +234,26 @@ class apiController extends Controller
                 'soghe'=>$request->soghe,
                 'idUser'=>$request->idUser,
                 'thanhtoan'=> '0',
-                'tinhtrang'=> '0']);         
+                'tinhtrang'=> '0']);
+            // $to_name = "Nhà xe Quang Minh";
+            // $to_email = $user->email;
+            // $data = [
+            //     'id' => $ve->id,
+            //     'tuyen' => $chuyen->tentuyen,
+            //     'name' => $user->name,
+            //     'ngaydi' => $chuyen->giodi,
+            //     'ngayden' => $chuyen->gioden,
+            //     'soghe' => $request->soghe,
+            //     'giave' => $chuyen->giave,
+            //     'noidi' => $chuyen->noidi.' - '.$chuyen->tentinhdi,
+            //     'noiden' => $chuyen->noiden.' - '.$chuyen->tentinhden,
+            //     'loaixe' => $chuyen->tenloaixe,
+            //     'ngaydat' =>$ve->created_at
+            // ];
+            // Mail::send('user.mail',$data,function($message) use ($to_name,$to_email){
+            //     $message->to($to_email)->subject('Xác Nhận Đặt Vé');
+            //     $message->from($to_email,$to_name);
+            // });         
             return "success";
         }
     }

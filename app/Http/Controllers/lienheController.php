@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\lienhe;
+use App\maps;
 
 class lienheController extends Controller
 {
@@ -14,7 +15,8 @@ class lienheController extends Controller
     	else{
     		$lienhe = lienhe::all();
     	}
-    	return view('admin2.lienhe.danhsach',['lienhe'=>$lienhe]);
+        $maps = maps::first();
+    	return view('admin2.lienhe.danhsach',['lienhe'=>$lienhe,'maps'=>$maps]);
     }
 
     public function addLienHe(Request $request){
@@ -43,5 +45,15 @@ class lienheController extends Controller
 
     public function deleteLienHe(Request $request){
     	lienhe::findOrFail($request->id)->delete();
+    }
+
+    public function maps(Request $request){
+        $maps = maps::all();
+        if(isset($map)){
+            maps::update($request->all());
+        }else{
+            maps::create($request->all());
+        }
+        return redirect()->route('lienhe')->with('thongbao','Đã chỉnh sửa thành công.');
     }
 }

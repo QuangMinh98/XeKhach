@@ -89,7 +89,7 @@ Trang chủ
 						<div class="describe-part">
 							<p>*** Quý hành khách có thể đặt vé qua tổng đài phục vụ <strong>24/24</strong> của chúng tôi
 								(kể cả thứ 7 và Chủ Nhật): <strong><a href="tel:1900 6067">1900 6067</a></strong> hoặc mua vé tiện lợi ngay trên chiếc
-								điện thoại thông minh của quý vị thông qua <strong>app FUTA Bus</strong></p>
+								điện thoại thông minh của quý vị thông qua <strong>app Quang Minh</strong></p>
 						</div>
 						<img src="{{asset('img/contact.png')}}" width="100%">
 					</div>

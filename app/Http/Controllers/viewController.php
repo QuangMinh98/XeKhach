@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Mail;
 use App\tinhdi;
 use App\tuyen;
 use App\chuyen;
@@ -12,6 +13,8 @@ use App\ve;
 use App\User;
 use App\thongtin;
 use App\tintuc;
+use App\lienhe;
+use App\maps;
 use Illuminate\Support\Facades\View;
 
 class viewController extends Controller
@@ -174,6 +177,16 @@ class viewController extends Controller
 
     public function datve(Request $request){
         $soghe = ve::where('idChuyen',$request->idChuyen)->where('soghe',$request->soghe)->count();
+        $chuyen = chuyen::join('lotrinh','chuyen.idLoTrinh','lotrinh.id')
+        ->join('tinhdi','lotrinh.idTinhDi','tinhdi.id')
+        ->join('tinhden','lotrinh.idTinhDen','tinhden.id')
+        ->join('xe','lotrinh.idXe','xe.id')
+        ->join('tuyen','xe.idTuyen','tuyen.id')
+        ->join('loaixe','xe.idLoaiXe','loaixe.id')
+        ->where('chuyen.id',$request->idChuyen)
+        ->select('chuyen.id','chuyen.idLoTrinh','xe.id as idXe','lotrinh.noidi','lotrinh.noiden','tinhdi.tentinh as tentinhdi','tinhden.tentinh as tentinhden','tuyen.tentuyen','loaixe.tenloaixe','chuyen.giodi','chuyen.gioden','chuyen.giave','chuyen.tinhtrang')
+        ->firstOrFail();
+
         $idUser = Auth::user()->id;
         if($soghe == 0){
             $ve = ve::create([
@@ -181,7 +194,26 @@ class viewController extends Controller
                 'soghe'=>$request->soghe,
                 'idUser'=>$idUser,
                 'thanhtoan'=> '0',
-                'tinhtrang'=> '0']);          
+                'tinhtrang'=> '0']);
+            $to_name = "Nhà xe Quang Minh";
+            $to_email = Auth::user()->email;
+            $data = [
+                'id' => $ve->id,
+                'tuyen' => $chuyen->tentuyen,
+                'name' => Auth::user()->name,
+                'ngaydi' => $chuyen->giodi,
+                'ngayden' => $chuyen->gioden,
+                'soghe' => $request->soghe,
+                'giave' => $chuyen->giave,
+                'noidi' => $chuyen->noidi.' - '.$chuyen->tentinhdi,
+                'noiden' => $chuyen->noiden.' - '.$chuyen->tentinhden,
+                'loaixe' => $chuyen->tenloaixe,
+                'ngaydat' =>$ve->created_at
+            ];
+            Mail::send('user.mail',$data,function($message) use ($to_name,$to_email){
+                $message->to($to_email)->subject('Xác Nhận Đặt Vé');
+                $message->from($to_email,$to_name);
+            });          
             return view('user.success');
         }
         else{
@@ -378,6 +410,29 @@ class viewController extends Controller
         $tintuc = tintuc::orderBy('created_at','desc')->take(5)->get();
         $tinhdi = tinhdi::all();
         return view('user.thongtinchitet',['thongtin'=>$thongtin,'diadiem'=>$tinhdi,'tintuc'=>$tintuc,'thongtinkhac'=>$thongtinkhac]);
+    }
+
+    public function viewLienHe(){
+        $lienhe = lienhe::all();
+        $maps = maps::first();
+        return view('user.lienhe',['lienhe'=>$lienhe,'maps'=>$maps]);
+    }
+
+    public function sendMail(){
+        $to_name = "Nhà xe Quang Minh";
+        $to_email = "doquangminh1998.oanh@gmail.com";
+        $data = [
+            'id' => '100',
+            'name' => 'Đỗ Quang Minh',
+            'ngaydi' => '18-07-2020',
+            'ngayden' => '18-07-2020',
+            'soghe' => '10',
+            'giave' => '150000'
+        ];
+        Mail::send('user.mail',$data,function($message) use ($to_name,$to_email){
+            $message->to($to_email)->subject('Xác Nhận Đặt Vé');
+            $message->from($to_email,$to_name);
+        });
     }
 
 }

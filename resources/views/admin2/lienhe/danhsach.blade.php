@@ -46,6 +46,12 @@
 								@endforeach
 							</tbody>
 						</table>
+						<div style="width: 100%; padding-top: 50px;">
+							<button class="btn btn-default" style="width: 200px;" data-toggle="modal" data-target="#mapsModal">Chỉnh sửa bản đồ</button>
+							@if(isset($maps))
+							{!!$maps->maps!!}
+							@endif
+						</div>
 					</div>
 					<!-- /.card-body -->
 				</div>
@@ -111,6 +117,42 @@
 						<div class="form-group">
 							<label for="thongtin">Thông Tin</label>
 							<input type="text" name="thongtin" class="form-control" id="edit-thongtin">
+						</div>
+						<button type="submit" class="btn btn-success" style="width: 120px;">Sửa</button>
+					</form>
+				</div>
+
+				<!-- Modal footer -->
+				<div class="modal-footer">
+					<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="mapsModal">
+		<div class="modal-dialog  modal-dialog-centered">
+			<div class="modal-content">
+
+				<!-- Modal Header -->
+				<div class="modal-header">
+					<h4 class="modal-title">Chỉnh Sửa Thông Tin Bản Đồ</h4>
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+
+				<!-- Modal body -->
+				<div class="modal-body">
+					<form action="{{route('editMaps')}}" method="POST">
+						@csrf
+						<input type="hidden" name="id" id="edit-id">
+						<div class="form-group">
+							<label for="maps">Link Nhúng Bản Đồ</label>
+							<textarea id="maps" name="maps" class="form-control">
+								@if(isset($maps))
+								{{$maps->maps}}
+								@endif
+							</textarea>
 						</div>
 						<button type="submit" class="btn btn-success" style="width: 120px;">Sửa</button>
 					</form>

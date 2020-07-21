@@ -11,6 +11,11 @@
 @section('noidung')
 <section class="content">
 	<div class="container-fluid">
+		<form action="{{route('thongke')}}" method="get">
+			<div class="form-group">
+				<input type="date" name="date" class="form-control" onchange="this.form.submit()" value="{{$date}}">
+			</div>
+		</form>
 		<div class="row">
 			<div class="col-lg-3 col-6">
             <!-- small box -->

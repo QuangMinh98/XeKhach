@@ -29,7 +29,7 @@
         <a class="nav-link" href="{{route('tintuc1')}}">Tin Tức <hr class="hov"></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Liên Hệ <hr class="hov"></a>
+        <a class="nav-link" href="{{route('viewLienhe')}}">Liên Hệ <hr class="hov"></a>
       </li>
       @if(!Auth::check())
       <li class="nav-item">

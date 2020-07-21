@@ -25,7 +25,7 @@
 				<form action="{{route('login')}}" method="post">
 					@csrf
 					<input type="text" name="email" class="input-email" placeholder="Email">
-					<input type="text" name="password" class="input-email" placeholder="Mật Khẩu">
+					<input type="password" name="password" class="input-email" placeholder="Mật Khẩu">
 					<button type="submit" class="button-submit">Đăng Nhập</button>
 				</form>
 				<h2>Hoặc</h2>

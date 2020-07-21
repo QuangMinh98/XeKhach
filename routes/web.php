@@ -103,6 +103,7 @@ Route::group(['prefix'=>'admin','middleware'=>'checkLogin'],function(){
 		Route::post('add','lienheController@addLienHe')->name('addLienHe');
 		Route::post('edit','lienheController@editLienHe')->name('editLienHe');
 		Route::post('delete','lienheController@deleteLienHe')->name('delLienHe');
+		Route::post('editMaps','lienheController@maps')->name('editMaps');
 	});
 	Route::get('thong-ke','veController@getThongKe')->name('thongke');
 	Route::get('logout','usersController@logOut')->name('logOutAdmin');
@@ -132,8 +133,10 @@ route::get('huong-dan','viewController@getHuongDan')->name('huongdan');
 route::get('tin-tuc','viewController@getTinTuc')->name('tintuc1');
 route::get('tin-tuc/{tieude}','viewController@viewTin')->name('viewTin');
 route::get('thong-tin/{tieude}','viewController@viewThongTin')->name('viewThongTin');
+route::get('lien-he','viewController@viewLienHe')->name('viewLienhe');
 route::post('checkout','viewController@checkout')->name('checkout')->middleware('checkUser');
 route::post('success','viewController@datve')->name('success')->middleware('checkUser');
+route::get('send-mail','viewController@sendMail')->name('mail');
 route::group(['prefix'=>'ve-cua-toi','middleware'=>'checkUser'],function(){
 	route::get('ve-da-dat','viewController@getTicket')->name('ticket');
 	route::get('ve-thanh-cong','viewController@getSuccess')->name('successticket');
